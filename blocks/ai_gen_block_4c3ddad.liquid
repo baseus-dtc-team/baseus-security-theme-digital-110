@@ -1,0 +1,289 @@
+{% doc %}
+  @prompt
+    生成一个富文本编辑section，可以控制字体样式，对其格式，插入超链接，控制上下左右间距
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-richtext-editor-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding-top: {{ block.settings.padding_top }}px;
+    padding-bottom: {{ block.settings.padding_bottom }}px;
+    padding-left: {{ block.settings.padding_left }}px;
+    padding-right: {{ block.settings.padding_right }}px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-richtext-content-{{ ai_gen_id }} {
+    font-family: {{ block.settings.font_family.family }}, {{ block.settings.font_family.fallback_families }};
+    font-weight: {{ block.settings.font_family.weight }};
+    font-size: {{ block.settings.font_size }}px;
+    line-height: {{ block.settings.line_height }};
+    color: {{ block.settings.text_color }};
+    text-align: {{ block.settings.text_align }};
+  }
+
+  .ai-richtext-content-{{ ai_gen_id }} h1,
+  .ai-richtext-content-{{ ai_gen_id }} h2,
+  .ai-richtext-content-{{ ai_gen_id }} h3,
+  .ai-richtext-content-{{ ai_gen_id }} h4,
+  .ai-richtext-content-{{ ai_gen_id }} h5,
+  .ai-richtext-content-{{ ai_gen_id }} h6 {
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-weight: {{ block.settings.heading_font.weight }};
+    color: {{ block.settings.heading_color }};
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
+
+  .ai-richtext-content-{{ ai_gen_id }} p {
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
+
+  .ai-richtext-content-{{ ai_gen_id }} p:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-richtext-content-{{ ai_gen_id }} a {
+    color: {{ block.settings.link_color }};
+    text-decoration: {% if block.settings.link_underline %}underline{% else %}none{% endif %};
+    transition: color 0.3s ease;
+  }
+
+  .ai-richtext-content-{{ ai_gen_id }} a:hover {
+    color: {{ block.settings.link_hover_color }};
+  }
+
+  .ai-richtext-content-{{ ai_gen_id }} strong,
+  .ai-richtext-content-{{ ai_gen_id }} b {
+    font-weight: 700;
+  }
+
+  .ai-richtext-content-{{ ai_gen_id }} em,
+  .ai-richtext-content-{{ ai_gen_id }} i {
+    font-style: italic;
+  }
+
+  .ai-richtext-content-{{ ai_gen_id }} ul,
+  .ai-richtext-content-{{ ai_gen_id }} ol {
+    margin-top: 0;
+    margin-bottom: 16px;
+    padding-left: 24px;
+  }
+
+  .ai-richtext-content-{{ ai_gen_id }} li {
+    margin-bottom: 8px;
+  }
+
+  .ai-richtext-content-{{ ai_gen_id }} blockquote {
+    margin: 16px 0;
+    padding-left: 20px;
+    border-left: 4px solid {{ block.settings.link_color }};
+    font-style: italic;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-richtext-editor-{{ ai_gen_id }} {
+      padding-top: {{ block.settings.padding_top | times: 0.7 }}px;
+      padding-bottom: {{ block.settings.padding_bottom | times: 0.7 }}px;
+      padding-left: {{ block.settings.padding_left | times: 0.7 }}px;
+      padding-right: {{ block.settings.padding_right | times: 0.7 }}px;
+    }
+
+    .ai-richtext-content-{{ ai_gen_id }} {
+      font-size: {{ block.settings.font_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-richtext-editor-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-richtext-content-{{ ai_gen_id }}">
+    {% if block.settings.content != blank %}
+      {{ block.settings.content }}
+    {% else %}
+      <p>Add your rich text content here. You can format text, add links, and control spacing using the settings panel.</p>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Rich text editor",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Text content"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "font_family",
+      "label": "Body font",
+      "default": "inter_n5"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "line_height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "label": "Line height",
+      "default": 1.5
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "inter_n6"
+    },
+    {
+      "type": "header",
+      "content": "Alignment"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        },
+        {
+          "value": "justify",
+          "label": "Justify"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link",
+      "default": "#278BFF"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link hover",
+      "default": "#011624"
+    },
+    {
+      "type": "checkbox",
+      "id": "link_underline",
+      "label": "Underline links",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Left padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Right padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rich text editor"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,360 @@
+<style>
+    #countrymodal {
+    width: 100vw;
+    height: 110vh;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+  }
+  #countrybuttons {
+  display: flex;
+  font-size: 14px;
+  cursor: pointer;
+  opacity: 1;
+  /* position: absolute; */
+  top: 15px;
+    position: relative;
+    min-height: 4.4rem;    
+  /* right: 30px; */
+  }
+  #countrybuttons:hover {
+  color: #b4b4b4;
+  }
+  #modal-content {
+  position: relative;
+  background-color: #fff;
+  margin: 10% auto;
+  border: 1px solid #888;
+  max-width: 790px;
+  padding: 65px 0;
+  z-index: 1001;
+  text-align: center;
+  border-radius: 4px;
+  }
+  #countryclose {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  }
+  #countryclose:hover,
+  #countryclose:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  }
+  .heard-tle {
+  font-size: 32px;
+  color:#000000;
+  }
+  .choice_box {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 50px;
+  padding: 0 80px;
+  font-size: 16px;
+  }
+  .country_box {
+  width: 280px;
+  height: 60px;
+  background-color: #f4f4f4;
+  color: #727273;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  align-items: center;
+  border-radius: 4px;
+  margin: 10px;
+  transition: all 0.5s ease;
+  text-decoration: none;  
+  }
+  .country_box:hover {
+  background-color: #fafbff;
+  cursor: pointer;
+  }
+  .countryimg_box {
+  display: flex;
+  }
+  .country_img {
+  width: 21px;
+  height: 21px;
+  margin-right: 10px;
+  margin-top: -2px;
+  }
+      .count_down {
+      display: flex;
+      text-align: center;
+      font-size: 12px;
+      color: darkgrey;
+    }
+    .timeboxs {
+      margin: 0 2px;
+      font-size: 10px;
+      line-height: 12px;
+    }
+    .timerpoint {
+      font-size: 20px;
+    }
+    .timerbg {
+      background-color: black;
+      color: #FFF100;
+      border-radius: 6px;
+      font-size: 26px;
+     line-height: 32px;
+      padding: 0 5px;
+    }
+  .count-down-time{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  @media screen and (max-width: 800px) {
+  /* .choice_box {
+          justify-content: center;
+          padding: 0;
+        }
+        .country_box {
+          width: 100%;
+        }
+        #modal-content {
+          margin: 40% 20px 0 20px;
+        } */
+    /* .timeboxs {
+      margin: 0 5px;
+    } */
+    .timerbg {
+      background-color: black;
+      color: #FFF100;
+      border-radius: 6px;
+      font-size: 20px;
+     line-height: 28px;
+      padding: 0 5px;
+    }
+  .heard-tle {
+    font-size: 24px;
+  }
+  #countrybuttons {
+    display: none;
+  }
+  }  
+</style>
+{%- if section.settings.menu != blank -%}
+  {% render 'header-drawer' %}
+{%- endif -%}
+
+{% render 'header-inline-menu', section: section %}
+
+{% render 'header-logo', tag: 'h1' %}
+
+<div class="header__column">
+  <div class="header__icons">
+		{% render 'color-scheme' %}
+            <div id="countrybuttons">
+              <img
+                id="country-flag"
+                class="country_img"
+                src="https://cdn.shopifycdn.net/s/files/1/0555/8432/5709/files/20230807-104158.png?v=1691377069"
+                alt=""
+              >
+              <span id="country-text">United States</span>
+            </div>
+          
+                        <div id="countrymodal">
+              <div id="modal-content">
+                <h4 class="heard-tle">Select Your Country/Region</h4>
+                <span id="countryclose">&times;</span>
+                <div class="choice_box">
+                  <a class="country_box" onclick="toUs()">
+                    <div class="countryimg_box">
+                      <img
+                        class="country_img"
+                        src="https://cdn.shopifycdn.net/s/files/1/0555/8432/5709/files/20230807-104158.png?v=1691377069"
+                        alt=""
+                      >
+                      <span>United States</span>
+                    </div>
+                    <div>English</div>
+                  </a>
+                  <a class="country_box" onclick="toEu()">
+                    <!-- <a href="https://eu.baseus.com/?SkipCozyRedirect=yes" class="country_box"> -->
+                    <div class="countryimg_box">
+                      <img
+                        class="country_img"
+                        src="https://cdn.shopifycdn.net/s/files/1/0555/8432/5709/files/20230807-104203.png?v=1691377075"
+                        alt=""
+                      >
+                      <span>Europe</span>
+                    </div>
+                    <div>English</div>
+                  </a>
+                  <a class="country_box" onclick="toUk()">
+                    <div class="countryimg_box">
+                      <img
+                        class="country_img"
+                        src="https://cdn.shopify.com/s/files/1/0555/8432/5709/files/United-kingdom_flag_icon_round.png?v=1724828199"
+                        alt=""
+                      >
+                      <span>United Kingdom</span>
+                    </div>
+                    <div>English</div>
+                  </a> 
+                                      <!-- <a href="https://eu.baseus.com/de?SkipCozyRedirect=yes" class="country_box">
+                      <div class="countryimg_box">
+                        <img
+                          class="country_img"
+                          src="https://cdn.shopify.com/s/files/1/0555/8432/5709/files/img_v2_31d5d87e-814d-4d54-b14c-d23980802ffg.png?v=1691396154"
+                          alt="" />
+                        <span>Deutschland</span>
+                      </div>
+                      <div>Deutsch</div>
+                    </a> -->
+                 
+                  <!--UK button-->
+                  
+                     <!-- <a href="https://security.baseus.com/en-uk" class="country_box">
+                    <div class="countryimg_box">
+                      <img
+                        class="country_img"
+                        src="https://cdn.shopify.com/s/files/1/0555/8432/5709/files/United-kingdom_flag_icon_round.png?v=1724828199"
+                        alt=""
+                      >
+                      <span>United Kingdom</span>
+                    </div>
+                    <div>English</div>
+                  </a> -->
+                  
+                  
+                </div>
+              </div>
+            </div>		
+    {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
+      {% render 'header-localization' %}
+    {%- endif -%}
+
+    {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
+      {% render 'header-language' %}
+    {%- endif -%}
+
+
+    {%- if section.settings.enable_search -%}
+      {% render 'header-search', section: section %}
+    {%- endif -%}
+    {%- if shop.customer_accounts_enabled -%}
+      {% render 'header-account' %}
+    {%- endif -%}
+
+    {% render 'header-cart' %}
+  </div>
+</div>
+  <script>
+       function getQueryString(name) {
+        let reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i')
+        let r = window.location.search.substr(1).match(reg)
+        if (r != null) {
+          return decodeURIComponent(r[2])
+        }
+        return null
+      }
+      let paths = getQueryString('irclickid')
+      let fileAddress = window.location.pathname
+      let urltopLink = window.location.href.indexOf("en-eu") > 0 || window.location.href.indexOf("en-uk") > 0
+      let urlHost = "https://security.baseus.com"
+          function toUs() {
+            if(urltopLink == true){
+            if(paths){
+               location.href = urlHost + fileAddress.slice(6) + "?irclickid=" + paths;
+            }else{
+               location.href = urlHost + fileAddress.slice(6)  ;
+            }              
+            }else{
+            if(paths){
+               location.href = urlHost + fileAddress + "?irclickid=" + paths;
+            }else{
+               location.href = urlHost + fileAddress ;
+            }              
+            }
+         
+      }
+          function toEu() {
+            if(urltopLink == true){
+            if(paths){
+               location.href = urlHost + '/en-eu' +  fileAddress.slice(6)  + "?irclickid=" + paths;
+            }else{
+               location.href = urlHost + '/en-eu' +  fileAddress.slice(6);
+            }                
+            }else{
+            if(paths){
+               location.href = urlHost + '/en-eu' + fileAddress + "?irclickid=" + paths;
+            }else{
+               location.href = urlHost + '/en-eu' + fileAddress ;
+            }             
+            }
+         
+      }    
+          function toUk() {
+            if(urltopLink == true){
+            if(paths){
+               location.href = urlHost + '/en-uk' + fileAddress.slice(6)+ "?irclickid=" + paths;
+            }else{
+               location.href = urlHost + '/en-uk' + fileAddress.slice(6);
+            }                
+            }else{
+            if(paths){
+               location.href = urlHost + '/en-uk' + fileAddress + "?irclickid=" + paths;
+            }else{
+               location.href = urlHost + '/en-uk' + fileAddress;
+            }             
+            }
+         
+      }        
+      var countrybuttons = document.getElementById("countrybuttons");
+      var countrymodal = document.getElementById("countrymodal");
+      countrybuttons.onclick = function() {
+        countrymodal.style.display = "block";
+      };
+      document.getElementById("countryclose").onclick = function() {
+        countrymodal.style.display = "none";
+      };
+                  // Get the current domain and pathname
+              var domain = window.location.hostname;
+              var path = window.location.pathname;
+            
+              // Find the text element and the image for the country/region
+              var countryText = document.getElementById('country-text');
+              var countryFlag = document.getElementById('country-flag');
+            
+              // Update text and image based on the domain and path
+              // if (domain === 'uk.baseus.com') {
+              //   countryText.textContent = 'United Kingdom/English';
+              //   countryFlag.src = 'https://cdn.shopify.com/s/files/1/0555/8432/5709/files/United-kingdom_flag_icon_round.png?v=1724828199';
+              // } else if (domain === 'eu.baseus.com') {
+              //   if (path.startsWith('/de')) {
+              //     countryText.textContent = 'Europe/Deutsch';
+              //     countryFlag.src = 'https://cdn.shopifycdn.net/s/files/1/0555/8432/5709/files/20230807-104203.png?v=1691377075';
+              //   } else {
+              //     countryText.textContent = 'Europe/English';
+              //     countryFlag.src = 'https://cdn.shopifycdn.net/s/files/1/0555/8432/5709/files/20230807-104203.png?v=1691377075';
+              //   }
+              // }
+           if (path.indexOf('en-uk') > -1) {
+                  countryText.textContent = 'United Kingdom';
+                  countryFlag.src = 'https://cdn.shopify.com/s/files/1/0555/8432/5709/files/United-kingdom_flag_icon_round.png?v=1724828199';
+                } else if(path.indexOf('en-eu') > -1) {
+                  countryText.textContent = 'Europe';
+                  countryFlag.src = 'https://cdn.shopifycdn.net/s/files/1/0555/8432/5709/files/20230807-104203.png?v=1691377075';
+                }
+    //       ajaxDomain({type: 'get', url: 'https://www.cloudflare.com/cdn-cgi/trace', contentType: 'Access-Control-Allow-Origin'}).then(res => {
+    // const countryLists = res.indexOf('loc=LU') > -1 || res.indexOf('loc=CZ') > -1 || res.indexOf('loc=AT') > -1 || res.indexOf('loc=DK') > -1 || res.indexOf('loc=LT') > -1 || res.indexOf('loc=LV') > -1 || res.indexOf('loc=PT') > -1 || res.indexOf('loc=BG') > -1 || res.indexOf('loc=MT') > -1 || res.indexOf('loc=EE') > -1 || res.indexOf('loc=CY') > -1 || res.indexOf('loc=HR') > -1 || res.indexOf('loc=RO') > -1 || res.indexOf('loc=SK') > -1 || res.indexOf('loc=HU') > -1 || res.indexOf('loc=IE') > -1 || res.indexOf('loc=SI') > -1 || res.indexOf('loc=FI') > -1 || res.indexOf('loc=GR') > -1 || res.indexOf('loc=NL') > -1 || res.indexOf('loc=BE') > -1 || res.indexOf('loc=FR') > -1 || res.indexOf('loc=PL') > -1 || res.indexOf('loc=IT') > -1 || res.indexOf('loc=DE') > -1 || res.indexOf('loc=ES') > -1 || res.indexOf('loc=SE') > -1
+    // if (location.host == 'www.baseus.com' && countryLists) {
+    //     countrybuttons.click()
+    // }
+    // });
+  </script>

@@ -1,0 +1,405 @@
+    <style>
+      .sale-detail-contain {
+        display: flex;
+        width: 100%;
+        max-width: 1300px;
+        gap: 5%;
+        margin: auto;
+        border-radius: 16px;
+        background: #ffffff;
+      }
+      .sale-detail-contain img {
+        width: 50%;
+        border-top-left-radius: 16px;
+        border-bottom-left-radius: 16px;
+      }
+      .sale-detail-textbox {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        padding: 20px 20px 40px 0;
+      }
+      .sale-detail-textbox h2 {
+        font-size: 26px;
+        font-weight: bold;
+      }
+      .sale-detail-des {
+        color: #fa9500;
+        font-size: 18px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+      }
+      .sale-detail-des b {
+        font-size: 26px;
+        color: #fa9500;
+        margin: 0 5px;
+      }
+      .eastermodal {
+        display: none;
+        width: 50%;
+        height: 80%;
+        margin: auto;
+        z-index: 1000;
+        position: fixed;
+        top: 10%;
+        left: 25%;
+        overflow-y: scroll;
+        background: #ffffff;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        border-radius: 12px;
+      }
+
+      .modal-box {
+        background: white;
+        padding: 30px 40px;
+        border-radius: 12px;
+        position: relative;
+        min-width: 300px;
+      }
+      .easteropenBtn {
+        width: min-content;
+        display: flex;
+        cursor: pointer;
+      }
+      .easteropenBtn img {
+        width: 25px;
+        margin-left: 10px;
+        max-width: none;
+      }
+      .close {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #888;
+      }
+      .close:hover {
+        color: #000;
+      }
+
+      .modal-box p {
+        margin: 20px 0;
+        font-size: 14px;
+      }
+      .modal-box h2 {
+        font-size: 20px;
+      }
+      .pop-modal-box table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 20px auto;
+      }
+      .pop-modal-box th,
+      td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+      }
+      .pop-modal-box th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+      }
+      .eastermodal ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 5px;
+      }
+      .eastermodal ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 5px;
+      }
+      .eastermodal ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+      @media screen and (max-width: 1200px) {
+        .sale-detail-textbox h2 {
+          font-size: 22px;
+        }
+        .sale-detail-textbox {
+          padding: 0;
+        }
+        .sale-detail-contain {
+          gap: 3%;
+        }
+      }
+      @media screen and (max-width: 750px) {
+        .sale-detail-contain {
+          flex-direction: column;
+        }
+        .sale-detail-contain img {
+          width: 100%;
+          max-width: none;
+          border-radius: 16px;
+        }
+        .sale-detail-textbox {
+          padding: 20px 10px 40px 10px;
+        }
+        .sale-detail-textbox h2 {
+          font-size: 18px;
+        }
+        .sale-detail-des b {
+          font-size: 20px;
+        }
+        .eastermodal {
+          width: 90%;
+          height: 80%;
+          left: 5%;
+        }
+        .easteropenBtn img {
+          width: 20px;
+        }
+        .modal-box {
+          min-width: none;
+          padding: 20px;
+        }
+        .pop-modal-box table {
+          font-size: 14px;
+        }
+        .modal-box h2 {
+          font-size: 18px;
+        }
+        .modal-box p {
+          font-size: 14px;
+        }
+        .pop-modal-box th,
+        td {
+          padding: 5px;
+        }
+        .sale-detail-textbox ul {
+          font-size: 14px;
+        }
+        .sale-detail-des {
+          font-size: 16px;
+        }
+      }
+    </style>
+
+<section class="section">
+    <div class="section__color-wrapper">
+     <div class="container">
+        {%- if section.settings.headerTitle != blank -%}
+          <header class="section__header text-container">
+            {%- if section.settings.headerTitle != blank -%}
+              <h3 class="heading h2">{{ section.settings.headerTitle }}</h3>
+            {%- endif -%}
+          </header>
+        {%- endif -%}           
+    <div class="sale-detail-contain">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/Baseus_Anniversary_Aale_2026_IPC.jpg"
+        alt=""
+      />
+      <div class="sale-detail-textbox">
+        <h2>Win a Brand Surprise Box with your order</h2>
+        <div class="sale-detail-des">Worth Up to <b>$199.99</b></div>
+        <div>
+          <ul>
+            <li>Gift: <a href="{{ section.settings.product.url }}"><b>Security N1 Outdoor Camera & Solar Panel</b></a></li>
+            <li>
+              Multiple orders are cumulative. The higher your total order value, the greater your chance of winning.
+            </li>
+            <li>
+              Both new and existing customers are eligible to participate.
+            </li>
+            <li>
+              Order returns/cancellations before prize shipment = forfeit
+              eligibility.
+            </li>
+          </ul>
+        </div>
+        <div class="sale-detail-des">
+          Order on this page now
+          <div id="easteropenBtn" class="easteropenBtn">
+            <img
+              src="https://www.bluettipower.com.au/cdn/shop/files/question_2025_522.svg"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+      <div id="eastermodal" class="eastermodal">
+        <div class="modal-box">
+          <span class="close" id="eastercloseBtn">&times;</span>
+          <div>
+            <h2>Event Period</h2>
+            <p>April 1st - April 30th</p>
+          </div>
+          <div class="pop-modal-box">
+            <h2>How to Join</h2>
+            <p>
+              Simply make a purchase on
+              <a href="security.baseus.com">security.baseus.com</a> during the promotional
+              period to be automatically entered.<br />
+              1. Simply place an order and you're automatically entered.<br />
+              2. Multiple orders are cumulative. The higher your total order
+              value, the greater your chance of winning.<br />
+              3. Both new and existing customers are eligible to participate.<br />
+              4. Order returns/cancellations before prize shipment = forfeit
+              eligibility.
+            </p>
+          </div>
+          <div class="pop-modal-box">
+            <h2>Winning Criteria</h2>
+            <p>
+              The customer with the highest weekly order total wins.<br />
+              In the event of a tie in total amount, priority will be given to
+              the customer who placed their order earliest.
+            </p>
+          </div>
+          <div class="pop-modal-box">
+            <h2>Weekly Giveaway</h2>
+            <p>
+              The event spans a total of four weeks. Each week, one user with
+              the highest cumulative order amount for that week will be selected
+              as a winner, resulting in a total of four winners throughout the
+              event.
+            </p>
+          </div>
+          <div class="pop-modal-box">
+            <table>
+              <thead>
+                <tr>
+                  <th>Week</th>
+                  <th>Order Period</th>
+                  <th>Winner Announced</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Week 1</td>
+                  <td>April 1 – April 7</td>
+                  <td>April 8</td>
+                </tr>
+                <tr>
+                  <td>Week 2</td>
+                  <td>April 8 – April 14</td>
+                  <td>April 15</td>
+                </tr>
+                <tr>
+                  <td>Week 3</td>
+                  <td>April 15 – April 21</td>
+                  <td>April 22</td>
+                </tr>
+                <tr>
+                  <td>Week 4</td>
+
+                  <td>April 22 – April 30</td>
+                  <td>May 7</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pop-modal-box">
+            <h2>Waht's in the Brand Surprise Box</h2>
+            <p>
+              Total Value $199.99<br />
+              · Security N1 Outdoor Camera & Solar Panel ×1<br />
+              (Actual contents are subject to the final shipment; Baseus reserves the right to make adjustments.)
+            </p>
+          </div>
+          <div class="pop-modal-box">
+            <h2>Prize Notification Method</h2>
+            <p>
+              Weekly Giveaway results will be sent via email to the email
+              address used by the winning user when placing their order.
+            </p>
+          </div>
+          <div class="pop-modal-box">
+            <h2>Prize Claim Confirmation Process</h2>
+            <p>
+              Upon receiving the prize notification email, please reply within 3
+              days to confirm your shipping address.<br />
+              If no reply is received within 3 days, the system will default to
+              using the shipping address from your most recent order to send the
+              Brand Surprise Box.
+            </p>
+          </div>
+          <div class="pop-modal-box">
+            <h2>Shipping Schedule</h2>
+            <p>
+              Once the shipping address has been confirmed, the Brand Surprise
+              Box will be dispatched within 3–7 business days.<br />
+              Once shipped, the tracking number will be sent to you via email.
+            </p>
+          </div>
+          <div class="pop-modal-box">
+            <h2>Share to Earn</h2>
+            <p>
+              Upon receiving their Brand Surprise Box, customers are invited to
+              share photos or videos of their winnings on Instagram, TikTok, or
+              Facebook.<br />
+              Please include the hashtag #BaseusBrandDay and tag the official
+              @Baseus account.<br />
+              <br />
+              Extra Bonus:<br />
+              Take a screenshot of your post and contact us to claim a special,
+              high-value mystery coupon!
+            </p>
+          </div>
+          <div class="pop-modal-box">
+            <h2>After-Sales Policy</h2>
+            <p>
+              Brand Surprise Box: no returns, exchanges, or warranty.<br />
+              Baseus reserves final interpretation rights.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+     </div>
+    </div>
+
+    <script>
+      const eastermodal = document.getElementById("eastermodal");
+      const easteropenBtn = document.getElementById("easteropenBtn");
+      const eastercloseBtn = document.getElementById("eastercloseBtn");
+
+    easteropenBtn.onclick = () => (eastermodal.style.display = "flex"); 
+      eastercloseBtn.onclick = () => (eastermodal.style.display = "none");
+      eastermodal.onclick = (e) => {
+        if (e.target === eastermodal) eastermodal.style.display = "none";
+      }; 
+    </script>
+</section>
+
+{% schema %}
+{
+  "name": "easter-bundle2026",
+  "class": "shopify-section--easter-bundle2026",
+  "blocks": [
+  
+  ],
+  "settings": [
+        {
+          "type": "text",
+          "id": "headerTitle",
+          "label": "headerTitle"
+        },    
+    {
+      "type": "color",
+      "id": "bgColor",
+      "label": "Background",
+      "default": "#fff"
+    },
+     {
+      "type": "color",
+      "id": "titleColor",
+      "label": "Title Color",
+      "default": "#fff"
+    },  
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },        
+  ],
+  "presets": [
+    {
+      "name": "easter-bundle2026",
+      "blocks": [
+      ]
+    }
+  ]
+}
+{% endschema %}

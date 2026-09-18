@@ -1,0 +1,438 @@
+{{ 'section-rich-text.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  {% render 'section-padding' %}
+  {% render 'section-margin' %}
+{%- endstyle -%}
+  <style>
+
+      body {
+        margin: 0;
+        padding: 0;
+        height: auto;
+        background-image: url('https://cdn.shopify.com/s/files/1/0895/4252/5298/files/MOB_01.jpg?v=1763626998');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;        
+        position: relative;
+      }
+
+      .snowflake {
+        position: absolute;
+        top: -10px;
+        background: white;
+        border-radius: 50%;
+        opacity: 0.8;
+        animation: fall linear infinite;
+        z-index: 200;
+      }
+
+      @keyframes fall {
+        to {
+          transform: translateY(300vh);
+          opacity: 0;
+        }
+      }
+body {
+  position: relative;
+  background: #d2d2d2;
+  background-image: url('https://cdn.shopify.com/s/files/1/0895/4252/5298/files/MOB_01.jpg?v=1763626998');
+}
+body:after {
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background-image: url('https://cdn.shopify.com/s/files/1/0770/7151/5968/files/snow1_snow_effect.webp?v=1734515647'), url('https://cdn.shopify.com/s/files/1/0770/7151/5968/files/snow2_snow_effect.webp?v=1734515666'), url('https://cdn.shopify.com/s/files/1/0770/7151/5968/files/snow3_snow_effect.webp?v=1734515655');
+  animation: snow 10s linear infinite;
+}
+@keyframes snow {
+  0% {
+    background-position: 0px 0px, 0px 0px, 0px 0px;
+  }
+  50% {
+    background-position: 500px 500px, 100px 200px, -100px 150px;
+  }
+  100% {
+    background-position: 500px 1000px, 200px 400px, -100px 300px;
+  }
+}      
+  </style>
+ <div class="rich-text {% if section.settings.full_width %}rich-text--full-width {% else %}container{% endif %} rich-text--align-{{ section.settings.alignment }}">
+  <div class="rich-text__blocks {% if section.settings.full_width %}container{% endif %} color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">   
+ 
+    </div>    
+      </div>
+          {% comment %} <script>
+      // 创建雪花
+      function createSnow() {
+        const snowContainer = document.body;
+
+        // 创建50个雪花
+        for (let i = 0; i < 100; i++) {
+          const snowflake = document.createElement("div");
+          snowflake.classList.add("snowflake");
+
+          // 随机大小 (2px 到 8px)
+          const size = Math.random() * 6 + 2;
+          snowflake.style.width = size + "px";
+          snowflake.style.height = size + "px";
+
+          // 随机位置
+          snowflake.style.left = Math.random() * 400 + "vw";
+
+          // 随机下落速度 (5s 到 15s)
+          const duration = Math.random() * 10 + 5;
+          snowflake.style.animationDuration = duration + "s";
+
+          // 随机延迟开始
+          snowflake.style.animationDelay = Math.random() * 5 + "s";
+
+          snowContainer.appendChild(snowflake);
+        }
+      }
+
+      // 页面加载后创建雪花
+      window.onload = createSnow;
+    </script> {% endcomment %}
+{% schema %}
+{
+  "name": "x1-pro-card-snow",
+  "tag": "section",
+  "class": "spaced-section",
+  "enabled_on": {
+    "templates": ["*"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "background-1",
+      "label": "t:sections.all.color_scheme.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": true,
+      "label": "t:sections.rich-text.settings.full_width.label"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.rich-text.settings.alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.rich-text.settings.alignment.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.rich-text.settings.alignment.options__3.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.rich-text.settings.alignment.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section-margin.header.content"
+    },
+    {
+      "type": "select",
+      "id": "margin_top",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-margin.options__6.label"
+        }
+      ],
+      "default": "no-indent",
+      "label": "t:sections.all.section-margin.margin_top.label"
+    },
+    {
+      "type": "select",
+      "id": "margin_bottom",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-margin.options__6.label"
+        }
+      ],
+      "default": "no-indent",
+      "label": "t:sections.all.section-margin.margin_bottom.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section-padding.header.content"
+    },
+    {
+      "type": "select",
+      "id": "padding_top",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-padding.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-padding.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-padding.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-padding.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-padding.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-padding.options__6.label"
+        }
+      ],
+      "default": "m",
+      "label": "t:sections.all.section-padding.padding_top.label"
+    },
+    {
+      "type": "select",
+      "id": "padding_bottom",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-padding.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-padding.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-padding.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-padding.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-padding.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-padding.options__6.label"
+        }
+      ],
+      "default": "m",
+      "label": "t:sections.all.section-padding.padding_bottom.label"
+    },
+        {
+          "type": "text",
+          "id": "text1",
+          "default": "Engineered for Total Privacy",
+          "label": "text1"
+        }, 
+        {
+          "type": "text",
+          "id": "text2",
+          "default": "No cloud. No subscription. Full data control.",
+          "label": "text2"
+        }, 
+        {
+          "type": "text",
+          "id": "text3",
+          "default": "https://cdn.shopify.com/s/files/1/0555/8432/5709/files/X1_PRO_PC.png",
+          "label": "text3"
+        }, 
+        {
+          "type": "text",
+          "id": "text4",
+          "default": "https://cdn.shopify.com/s/files/1/0555/8432/5709/files/X1_PRO_MOB.png",
+          "label": "text4"
+        }, 
+        {
+          "type": "text",
+          "id": "text5",
+          "default": "Sign up now for updates on new products and a chance at beta testing!",
+          "label": "text5"
+        }, 
+        {
+          "type": "text",
+          "id": "text6",
+          "default": "Unlock the Launch Special when we go live on Kickstarter!",
+          "label": "text6"
+        }, 
+        {
+          "type": "text",
+          "id": "text7",
+          "default": "By signing up, you agree to receive our newsletters.",
+          "label": "text7"
+        }   
+  ],
+  "blocks": [
+    {
+      "type": "subheading",
+      "name": "t:sections.rich-text.blocks.subheading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "subheading",
+          "default": "Subheading",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading.label"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "t:sections.rich-text.blocks.heading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Heading for your section",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading.label"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            {
+              "value": "medium",
+              "label": "t:sections.rich-text.blocks.heading.settings.heading_size.options__1.label"
+            },
+            {
+              "value": "large",
+              "label": "t:sections.rich-text.blocks.heading.settings.heading_size.options__2.label"
+            }
+          ],
+          "default": "medium",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading_size.label"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.rich-text.blocks.text.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Description for your section.</p>",
+          "label": "t:sections.rich-text.blocks.text.settings.text.label"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "t:sections.rich-text.blocks.button.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button label",
+          "label": "t:sections.all.button.button_label.label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.all.button.button_link.label"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "options": [
+            {
+              "value": "primary",
+              "label": "t:sections.all.button.button_style.options__1.label"
+            },
+            {
+              "value": "secondary",
+              "label": "t:sections.all.button.button_style.options__2.label"
+            },
+            {
+              "value": "tertiary",
+              "label": "t:sections.all.button.button_style.options__3.label"
+            }
+          ],
+          "default": "primary",
+          "label": "t:sections.all.button.button_style.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "x1-pro-card-snow",
+      "blocks": [
+        {
+          "type": "subheading"
+        },
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

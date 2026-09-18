@@ -1,0 +1,725 @@
+{% doc %}
+  @prompt
+    要一个轮播图，上面可以有图片设置和按钮文字配置
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-carousel-{{ ai_gen_id }} {
+    position: relative;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    overflow: hidden;
+    display: block;
+  }
+
+  .ai-carousel-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    height: {{ block.settings.carousel_height }}px;
+  }
+
+  .ai-carousel-track-{{ ai_gen_id }} {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    height: 100%;
+  }
+
+  .ai-carousel-slide-{{ ai_gen_id }} {
+    min-width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-carousel-slide-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-carousel-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-carousel-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    max-height: 500px;
+  }
+
+  .ai-carousel-content-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 2;
+    width: 90%;
+    max-width: 600px;
+  }
+
+  .ai-carousel-title-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.title_size }}px;
+    margin: 0 0 16px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .ai-carousel-description-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.description_size }}px;
+    margin: 0 0 24px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .ai-carousel-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 12px 32px;
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-size: {{ block.settings.button_text_size }}px;
+    transition: all 0.3s ease;
+  }
+
+  .ai-carousel-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg_color }};
+    color: {{ block.settings.button_hover_text_color }};
+  }
+
+  .ai-carousel-nav-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: {{ block.settings.nav_bg_color }};
+    color: {{ block.settings.nav_icon_color }};
+    border: none;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+  }
+
+  .ai-carousel-nav-{{ ai_gen_id }}:hover {
+    opacity: 1;
+    background-color: {{ block.settings.nav_hover_bg_color }};
+  }
+
+  .ai-carousel-nav-prev-{{ ai_gen_id }} {
+    left: 16px;
+  }
+
+  .ai-carousel-nav-next-{{ ai_gen_id }} {
+    right: 16px;
+  }
+
+  .ai-carousel-dots-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 3;
+  }
+
+  .ai-carousel-dot-{{ ai_gen_id }} {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: {{ block.settings.dot_color }};
+    border: none;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-carousel-dot-{{ ai_gen_id }}.active {
+    opacity: 1;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-carousel-wrapper-{{ ai_gen_id }} {
+      height: {{ block.settings.carousel_height | times: 0.6 }}px;
+    }
+
+    .ai-carousel-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.7 }}px;
+    }
+
+    .ai-carousel-description-{{ ai_gen_id }} {
+      font-size: {{ block.settings.description_size | times: 0.8 }}px;
+    }
+
+    .ai-carousel-nav-{{ ai_gen_id }} {
+      width: 36px;
+      height: 36px;
+    }
+  }
+{% endstyle %}
+
+<image-carousel-{{ ai_gen_id }} class="ai-carousel-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-carousel-wrapper-{{ ai_gen_id }}">
+    <div class="ai-carousel-track-{{ ai_gen_id }}">
+      {% for i in (1..5) %}
+        {% liquid
+          assign image_key = 'slide_' | append: i | append: '_image'
+          assign title_key = 'slide_' | append: i | append: '_title'
+          assign description_key = 'slide_' | append: i | append: '_description'
+          assign button_text_key = 'slide_' | append: i | append: '_button_text'
+          assign button_link_key = 'slide_' | append: i | append: '_button_link'
+          assign enabled_key = 'slide_' | append: i | append: '_enabled'
+
+          assign slide_image = block.settings[image_key]
+          assign slide_title = block.settings[title_key]
+          assign slide_description = block.settings[description_key]
+          assign slide_button_text = block.settings[button_text_key]
+          assign slide_button_link = block.settings[button_link_key]
+          assign slide_enabled = block.settings[enabled_key]
+        %}
+
+        {% if slide_enabled %}
+          <div class="ai-carousel-slide-{{ ai_gen_id }}" data-slide="{{ forloop.index0 }}">
+            {% if slide_image %}
+              <img
+                src="{{ slide_image | image_url: width: 2000 }}"
+                alt="{{ slide_image.alt | escape }}"
+                loading="lazy"
+                width="{{ slide_image.width }}"
+                height="{{ slide_image.height }}"
+              >
+            {% else %}
+              <div class="ai-carousel-placeholder-{{ ai_gen_id }}">
+                {{ 'hero-apparel-1' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+
+            <div class="ai-carousel-content-{{ ai_gen_id }}">
+              {% if slide_title != blank %}
+                <h2 class="ai-carousel-title-{{ ai_gen_id }}">{{ slide_title }}</h2>
+              {% endif %}
+
+              {% if slide_description != blank %}
+                <p class="ai-carousel-description-{{ ai_gen_id }}">{{ slide_description }}</p>
+              {% endif %}
+
+              {% if slide_button_text != blank %}
+                <a
+                  href="{{ slide_button_link | default: '#' }}"
+                  class="ai-carousel-button-{{ ai_gen_id }}"
+                >
+                  {{ slide_button_text }}
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {% if block.settings.show_navigation %}
+      <button
+        class="ai-carousel-nav-{{ ai_gen_id }} ai-carousel-nav-prev-{{ ai_gen_id }}"
+        aria-label="上一张"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+
+      <button
+        class="ai-carousel-nav-{{ ai_gen_id }} ai-carousel-nav-next-{{ ai_gen_id }}"
+        aria-label="下一张"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    {% endif %}
+
+    {% if block.settings.show_dots %}
+      <div class="ai-carousel-dots-{{ ai_gen_id }}"></div>
+    {% endif %}
+  </div>
+</image-carousel-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ImageCarousel{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.currentSlide = 0;
+        this.autoplayInterval = null;
+      }
+
+      connectedCallback() {
+        this.track = this.querySelector('.ai-carousel-track-{{ ai_gen_id }}');
+        this.slides = this.querySelectorAll('.ai-carousel-slide-{{ ai_gen_id }}');
+        this.prevButton = this.querySelector('.ai-carousel-nav-prev-{{ ai_gen_id }}');
+        this.nextButton = this.querySelector('.ai-carousel-nav-next-{{ ai_gen_id }}');
+        this.dotsContainer = this.querySelector('.ai-carousel-dots-{{ ai_gen_id }}');
+
+        if (this.slides.length === 0) return;
+
+        this.createDots();
+        this.setupEventListeners();
+        this.updateCarousel();
+
+        {% if block.settings.autoplay %}
+          this.startAutoplay();
+        {% endif %}
+      }
+
+      createDots() {
+        if (!this.dotsContainer) return;
+
+        this.slides.forEach((slide, index) => {
+          const dot = document.createElement('button');
+          dot.classList.add('ai-carousel-dot-{{ ai_gen_id }}');
+          dot.setAttribute('aria-label', `幻灯片 ${index + 1}`);
+          dot.addEventListener('click', () => this.goToSlide(index));
+          this.dotsContainer.appendChild(dot);
+        });
+      }
+
+      setupEventListeners() {
+        if (this.prevButton) {
+          this.prevButton.addEventListener('click', () => this.prevSlide());
+        }
+
+        if (this.nextButton) {
+          this.nextButton.addEventListener('click', () => this.nextSlide());
+        }
+
+        this.addEventListener('mouseenter', () => this.stopAutoplay());
+        this.addEventListener('mouseleave', () => {
+          {% if block.settings.autoplay %}
+            this.startAutoplay();
+          {% endif %}
+        });
+      }
+
+      updateCarousel() {
+        const offset = -this.currentSlide * 100;
+        this.track.style.transform = `translateX(${offset}%)`;
+
+        const dots = this.querySelectorAll('.ai-carousel-dot-{{ ai_gen_id }}');
+        dots.forEach((dot, index) => {
+          if (index === this.currentSlide) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      }
+
+      goToSlide(index) {
+        this.currentSlide = index;
+        this.updateCarousel();
+      }
+
+      nextSlide() {
+        this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+        this.updateCarousel();
+      }
+
+      prevSlide() {
+        this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
+        this.updateCarousel();
+      }
+
+      startAutoplay() {
+        this.stopAutoplay();
+        this.autoplayInterval = setInterval(() => {
+          this.nextSlide();
+        }, {{ block.settings.autoplay_speed | times: 1000 }});
+      }
+
+      stopAutoplay() {
+        if (this.autoplayInterval) {
+          clearInterval(this.autoplayInterval);
+          this.autoplayInterval = null;
+        }
+      }
+
+      disconnectedCallback() {
+        this.stopAutoplay();
+      }
+    }
+
+    customElements.define('image-carousel-{{ ai_gen_id }}', ImageCarousel{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "图片轮播",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "轮播设置"
+    },
+    {
+      "type": "range",
+      "id": "carousel_height",
+      "min": 300,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "label": "轮播高度",
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "桌面宽度",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "显示导航箭头",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "显示指示点",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "自动播放",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "unit": "秒",
+      "label": "自动播放速度",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "文字样式"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "文字颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "标题大小",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "描述大小",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "按钮样式"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "按钮背景色",
+      "default": "#278BFF"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "按钮文字颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "按钮悬停背景色",
+      "default": "#011624"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "按钮悬停文字颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_text_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "按钮文字大小",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "按钮圆角",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "导航样式"
+    },
+    {
+      "type": "color",
+      "id": "nav_bg_color",
+      "label": "导航背景色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "nav_icon_color",
+      "label": "导航图标颜色",
+      "default": "#011624"
+    },
+    {
+      "type": "color",
+      "id": "nav_hover_bg_color",
+      "label": "导航悬停背景色",
+      "default": "#278BFF"
+    },
+    {
+      "type": "color",
+      "id": "dot_color",
+      "label": "指示点颜色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "幻灯片 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "slide_1_enabled",
+      "label": "启用幻灯片 1",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_1_image",
+      "label": "图片"
+    },
+    {
+      "type": "text",
+      "id": "slide_1_title",
+      "label": "标题",
+      "default": "欢迎来到我们的商店"
+    },
+    {
+      "type": "textarea",
+      "id": "slide_1_description",
+      "label": "描述",
+      "default": "发现我们最新的产品系列"
+    },
+    {
+      "type": "text",
+      "id": "slide_1_button_text",
+      "label": "按钮文字",
+      "default": "立即购买"
+    },
+    {
+      "type": "url",
+      "id": "slide_1_button_link",
+      "label": "按钮链接"
+    },
+    {
+      "type": "header",
+      "content": "幻灯片 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "slide_2_enabled",
+      "label": "启用幻灯片 2",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_2_image",
+      "label": "图片"
+    },
+    {
+      "type": "text",
+      "id": "slide_2_title",
+      "label": "标题",
+      "default": "新品上市"
+    },
+    {
+      "type": "textarea",
+      "id": "slide_2_description",
+      "label": "描述",
+      "default": "探索我们的最新系列"
+    },
+    {
+      "type": "text",
+      "id": "slide_2_button_text",
+      "label": "按钮文字",
+      "default": "查看详情"
+    },
+    {
+      "type": "url",
+      "id": "slide_2_button_link",
+      "label": "按钮链接"
+    },
+    {
+      "type": "header",
+      "content": "幻灯片 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "slide_3_enabled",
+      "label": "启用幻灯片 3",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_3_image",
+      "label": "图片"
+    },
+    {
+      "type": "text",
+      "id": "slide_3_title",
+      "label": "标题",
+      "default": "限时优惠"
+    },
+    {
+      "type": "textarea",
+      "id": "slide_3_description",
+      "label": "描述",
+      "default": "不要错过我们的特别优惠"
+    },
+    {
+      "type": "text",
+      "id": "slide_3_button_text",
+      "label": "按钮文字",
+      "default": "立即抢购"
+    },
+    {
+      "type": "url",
+      "id": "slide_3_button_link",
+      "label": "按钮链接"
+    },
+    {
+      "type": "header",
+      "content": "幻灯片 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "slide_4_enabled",
+      "label": "启用幻灯片 4",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_4_image",
+      "label": "图片"
+    },
+    {
+      "type": "text",
+      "id": "slide_4_title",
+      "label": "标题"
+    },
+    {
+      "type": "textarea",
+      "id": "slide_4_description",
+      "label": "描述"
+    },
+    {
+      "type": "text",
+      "id": "slide_4_button_text",
+      "label": "按钮文字"
+    },
+    {
+      "type": "url",
+      "id": "slide_4_button_link",
+      "label": "按钮链接"
+    },
+    {
+      "type": "header",
+      "content": "幻灯片 5"
+    },
+    {
+      "type": "checkbox",
+      "id": "slide_5_enabled",
+      "label": "启用幻灯片 5",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_5_image",
+      "label": "图片"
+    },
+    {
+      "type": "text",
+      "id": "slide_5_title",
+      "label": "标题"
+    },
+    {
+      "type": "textarea",
+      "id": "slide_5_description",
+      "label": "描述"
+    },
+    {
+      "type": "text",
+      "id": "slide_5_button_text",
+      "label": "按钮文字"
+    },
+    {
+      "type": "url",
+      "id": "slide_5_button_link",
+      "label": "按钮链接"
+    }
+  ],
+  "presets": [
+    {
+      "name": "图片轮播"
+    }
+  ]
+}
+{% endschema %}

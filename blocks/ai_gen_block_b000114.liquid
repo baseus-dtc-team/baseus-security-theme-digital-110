@@ -1,0 +1,435 @@
+{% doc %}
+  @prompt
+    生成一个可以新增图片和注释的section，一排四个，移动端一排两个，右上角有个问号按钮，触碰点击，则注释的文字就显现，注释文字在图片上面，都可以配置
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-image-grid-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: auto;
+  }
+
+  .ai-image-grid__container-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: {{ block.settings.grid_gap }}px;
+  }
+
+  .ai-image-grid__item-{{ ai_gen_id }} {
+    position: relative;
+  }
+
+  .ai-image-grid__image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    {% comment %} overflow: hidden; {% endcomment %}
+    border-radius: {{ block.settings.image_border_radius }}px;
+  }
+
+  .ai-image-grid__image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-image-grid__placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-image-grid__placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+  }
+
+  .ai-image-grid__help-button-{{ ai_gen_id }} {
+    position: absolute;
+    top: {{ block.settings.button_offset }}px;
+    right: {{ block.settings.button_offset }}px;
+    width: {{ block.settings.button_size }}px;
+    height: {{ block.settings.button_size }}px;
+    border-radius: 50%;
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: {{ block.settings.button_size | times: 0.6 }}px;
+    font-weight: bold;
+    z-index: 2;
+    transition: transform 0.2s ease;
+  }
+
+  .ai-image-grid__help-button-{{ ai_gen_id }}:hover {
+    transform: scale(1.1);
+  }
+
+  .ai-image-grid__annotation-{{ ai_gen_id }} {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    right: 0;
+    background-color: {{ block.settings.annotation_bg_color }};
+    color: {{ block.settings.annotation_text_color }};
+    padding: {{ block.settings.annotation_padding }}px;
+    border-radius: {{ block.settings.image_border_radius }}px {{ block.settings.image_border_radius }}px 0 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1;
+    font-size: {{ block.settings.annotation_font_size }}px;
+    line-height: 1.4;
+    width: 96%;
+    margin: auto;
+    border-radius: 6px;
+  }
+
+  .ai-image-grid__annotation-{{ ai_gen_id }}.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-image-grid__container-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  .ai-image-grid-{{ ai_gen_id }} {
+      width: calc(100% - 20px);
+  }    
+  }
+{% endstyle %}
+
+<image-grid-{{ ai_gen_id }}
+  class="ai-image-grid-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-image-grid__container-{{ ai_gen_id }}">
+    {% for i in (1..8) %}
+      {% liquid
+        assign image_key = 'image_' | append: i
+        assign annotation_key = 'annotation_' | append: i
+        assign image = block.settings[image_key]
+        assign annotation = block.settings[annotation_key]
+      %}
+      {% if image %}
+      <div class="ai-image-grid__item-{{ ai_gen_id }}" data-item-id="{{ i }}">
+        <div class="ai-image-grid__image-wrapper-{{ ai_gen_id }}">
+          {% if image %}
+            <img
+              src="{{ image | image_url: width: 600 }}"
+              alt="{{ image.alt | escape }}"
+              class="ai-image-grid__image-{{ ai_gen_id }}"
+              loading="lazy"
+              width="600"
+              height="600"
+            >
+          {% endif %}
+
+          {% if annotation != blank %}
+            <div class="ai-image-grid__annotation-{{ ai_gen_id }}" data-annotation="{{ i }}">
+              {{ annotation }}
+            </div>
+          {% endif %}
+
+          {% if annotation != blank %}
+            <button
+              class="ai-image-grid__help-button-{{ ai_gen_id }}"
+              aria-label="显示注释"
+              data-help-button="{{ i }}"
+            >
+              ?
+            </button>
+          {% endif %}
+        </div>
+      </div>
+     {% endif %} 
+    {% endfor %}
+  </div>
+</image-grid-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ImageGrid{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.helpButtons = this.querySelectorAll('.ai-image-grid__help-button-{{ ai_gen_id }}');
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.helpButtons.forEach((button) => {
+          const itemId = button.getAttribute('data-help-button');
+          const annotation = this.querySelector(`.ai-image-grid__annotation-{{ ai_gen_id }}[data-annotation="${itemId}"]`);
+
+          button.addEventListener('click', () => {
+            this.querySelectorAll('.ai-image-grid__annotation-{{ ai_gen_id }}').forEach((ann) => {
+              if (ann !== annotation) {
+                ann.classList.remove('active');
+              }
+            });
+
+            annotation.classList.toggle('active');
+          });
+        });
+
+        document.addEventListener('click', (event) => {
+          if (
+            !event.target.closest('.ai-image-grid__help-button-{{ ai_gen_id }}') &&
+            !event.target.closest('.ai-image-grid__annotation-{{ ai_gen_id }}')
+          ) {
+            this.querySelectorAll('.ai-image-grid__annotation-{{ ai_gen_id }}').forEach((ann) => {
+              ann.classList.remove('active');
+            });
+          }
+        });
+      }
+    }
+
+    customElements.define('image-grid-{{ ai_gen_id }}', ImageGrid{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "图片注释网格",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "布局"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "桌面宽度",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "网格间距",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "图片圆角",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "问号按钮"
+    },
+    {
+      "type": "range",
+      "id": "button_size",
+      "label": "按钮大小",
+      "min": 20,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "button_offset",
+      "label": "按钮边距",
+      "min": 4,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "按钮背景色",
+      "default": "#282828"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "按钮文字色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "注释样式"
+    },
+    {
+      "type": "range",
+      "id": "annotation_font_size",
+      "label": "注释字体大小",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "annotation_padding",
+      "label": "注释内边距",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "annotation_bg_color",
+      "label": "注释背景色",
+      "default": "#282828"
+    },
+    {
+      "type": "color",
+      "id": "annotation_text_color",
+      "label": "注释文字色",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "图片 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "图片"
+    },
+    {
+      "type": "richtext",
+      "id": "annotation_1",
+      "label": "注释文字"
+    },
+    {
+      "type": "header",
+      "content": "图片 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "图片"
+    },
+    {
+      "type": "richtext",
+      "id": "annotation_2",
+      "label": "注释文字"
+    },
+    {
+      "type": "header",
+      "content": "图片 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "图片"
+    },
+    {
+      "type": "richtext",
+      "id": "annotation_3",
+      "label": "注释文字"
+    },
+    {
+      "type": "header",
+      "content": "图片 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "图片"
+    },
+    {
+      "type": "richtext",
+      "id": "annotation_4",
+      "label": "注释文字"
+    },
+    {
+      "type": "header",
+      "content": "图片 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_5",
+      "label": "图片"
+    },
+    {
+      "type": "textarea",
+      "id": "annotation_5",
+      "label": "注释文字"
+    },
+    {
+      "type": "header",
+      "content": "图片 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_6",
+      "label": "图片"
+    },
+    {
+      "type": "textarea",
+      "id": "annotation_6",
+      "label": "注释文字"
+    },
+    {
+      "type": "header",
+      "content": "图片 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_7",
+      "label": "图片"
+    },
+    {
+      "type": "textarea",
+      "id": "annotation_7",
+      "label": "注释文字"
+    },
+    {
+      "type": "header",
+      "content": "图片 8"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_8",
+      "label": "图片"
+    },
+    {
+      "type": "textarea",
+      "id": "annotation_8",
+      "label": "注释文字"
+    }
+  ],
+  "presets": [
+    {
+      "name": "图片注释网格"
+    }
+  ]
+}
+{% endschema %}

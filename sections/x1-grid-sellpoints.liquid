@@ -1,0 +1,760 @@
+{{ 'section-rich-text.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  {% render 'section-padding' %}
+  {% render 'section-margin' %}
+{%- endstyle -%}
+  <style>
+    .s2-grid-sellpoints-head {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 30px;
+      text-align: center;
+    }
+    .s2-grid-sellpoints-headtitle {
+      font-size: 34px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    .s2-grid-sellpoints-subhead {
+      font-size: 24px;
+    }
+    .s2-grid-sellpoints-content {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      background: linear-gradient(to right, #010100, #2b2e32 50%, #010100);
+      max-width: 1500px;
+    }
+    .s2-grid-sellpoints-zongbox {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .s2-grid-sellpoints-boxs {
+      position: relative;
+    }
+    .s2-grid-sellpoints-title {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      font-size: 1.8vw;
+      color: #000000;
+      font-weight: bold;
+    }
+    .s2-grid-sellpoints-bgimgs {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .s2-grid-text1 {
+      top: 5%;
+      font-size: 2vw;
+      line-height: 2.3vw;
+      text-align: left;
+      left: 5%;
+      font-weight: bold;
+      color: #000000;
+      line-height: 2.5vw;
+      width: 90%;
+    }
+    .s2-grid-text4 span {
+      display: block;
+      font-size: 1.2vw;
+      color: #555555;
+    }
+    .s2-grid-text2 {
+      top: 5%;
+      left: 5%;
+      font-size: 2vw;
+      line-height: 2.3vw;
+      width: 90%;
+      text-align: left;
+      font-weight: bold;
+      /* color: #ffffff; */
+    }
+    .s2-grid-text3 {
+      width: max-content;
+      top: 10%;
+      left: 10%;
+    }
+    .s2-grid-text3-des {
+      font-weight: bold;
+    }
+    .s2-grid-text4 {
+      top: 7%;
+      line-height: 2vw;
+    }
+    .s2-grid-text4-des {
+      font-weight: bold;
+      font-size: 3.5vw;
+    }
+    .s2-grid-sellpoints-boxs2 {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .s2-grid-sellpoints-smallbox {
+      width: calc(50% - 5px);
+    }
+    .s2-grid-centertext {
+      font-size: 1.5vw;
+    }
+    .s2-grid-centertext span {
+      font-size: 1.8vw;
+      color: #ffffff;
+    }
+    .s2-grid-bottomtext {
+      top: unset;
+      bottom: 10%;
+    }
+    .zongbox1 {
+      width: 35.5%;
+    }
+    .zongbox2 {
+      width: 41.7%;
+    }
+    .zongbox3 {
+      width: 23.5%;
+    }
+    .grid-pc-show {
+      display: flex;
+    }
+    .grid-mo-show {
+      display: none;
+    }
+    .x1-grid-section {
+    margin: 0;
+    display: flex;
+    justify-content: center;  
+    background: linear-gradient(to right, #010100, #2b2e32 50%, #010100);
+    z-index: 1;
+    position: relative;
+    padding: 50px 30px;
+    }
+    @media screen and (min-width: 1700px) {
+    .s2-grid-text1 {
+    font-size: 36px;
+    line-height: 40px;
+    }
+    .s2-grid-text2 {
+      font-size: 36px;
+      line-height: 40px;
+    }
+    .s2-grid-sellpoints-title {
+    font-size: 34px;
+    line-height: 38px;
+    }   
+    }
+    @media screen and (max-width: 750px) {
+      .s2-grid-sellpoints-headtitle {
+        font-size: 30px;
+      }
+      .s2-grid-sellpoints-subhead {
+        font-size: 18px;
+        width: 100%;
+      }
+      .s2-grid-centertext span {
+        font-size: 30px;
+      }
+      .s2-grid-sellpoints-content {
+        flex-direction: column;
+        gap: 10px;
+        padding: 0 20px;
+      }
+      .s2-grid-sellpoints-zongbox {
+        width: 100%;
+      }
+      .s2-grid-text1 {
+        top: 10%;
+        font-size: 20px;
+        line-height: 24px;
+        width: 100%;
+      }
+      .s2-grid-text4 span {
+        font-size: 16px;
+      }
+      .s2-grid-text1 span {
+        font-size: 16px;
+      }      
+      .s2-grid-text2 {
+        top: 10%;
+        font-size: 24px;
+        line-height: 28px;
+        width: 100%;
+      }
+      .s2-grid-sellpoints-title {
+        font-size: 22px;
+        line-height: 26px;
+      }
+      .s2-grid-text4-des {
+        font-size: 34px;
+      }
+      .grid-pc-show {
+        display: none;
+      }
+      .grid-mo-show {
+        display: flex;
+      }
+     .x1-grid-section {
+    padding: 30px 0px;
+    }     
+    }
+  </style>
+ <div class="x1-grid-section rich-text {% if section.settings.full_width %}rich-text--full-width {% else %}container{% endif %} rich-text--align-{{ section.settings.alignment }}">
+  <div class="rich-text__blocks {% if section.settings.full_width %}container{% endif %} color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">   
+         <div class="s2-grid-sellpoints-content grid-pc-show">
+      <div class="s2-grid-sellpoints-zongbox zongbox1">
+        <div class="s2-grid-sellpoints-boxs">
+          <div class="s2-grid-sellpoints-title s2-grid-text2">
+            {{ section.settings.text1 }}
+          </div>
+          <img
+            
+            class="s2-grid-sellpoints-bgimgs"
+            src="https://cdn.shopify.com/s/files/1/0555/8432/5709/files/X1_PRO_01.jpg?v=1753870307"
+            alt=""
+          />
+        </div>
+        <div class="s2-grid-sellpoints-boxs">
+          <div class="s2-grid-sellpoints-title s2-grid-text1">
+            {{ section.settings.text2 }}<br />
+            {{ section.settings.text3 }}
+          </div>
+          <img
+            
+            class="s2-grid-sellpoints-bgimgs"
+            src="https://cdn.shopify.com/s/files/1/0555/8432/5709/files/X1_PRO_04.jpg?v=1753870307"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="s2-grid-sellpoints-zongbox zongbox2">
+        <div class="s2-grid-sellpoints-boxs">
+          <div class="s2-grid-sellpoints-title s2-grid-text2">{{ section.settings.text4 }}</div>
+          <img
+            
+            class="s2-grid-sellpoints-bgimgs"
+            src="https://cdn.shopify.com/s/files/1/0555/8432/5709/files/X1_PRO_02-300.jpg?v=1753870307"
+            alt=""
+          />
+        </div>
+        <div class="s2-grid-sellpoints-boxs">
+          <div class="s2-grid-sellpoints-title s2-grid-text1">
+            {{ section.settings.text5 }}
+          </div>
+          <img
+            
+            class="s2-grid-sellpoints-bgimgs"
+            src="https://cdn.shopify.com/s/files/1/0555/8432/5709/files/X1_PRO_05.jpg?v=1753870307"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="s2-grid-sellpoints-zongbox zongbox3">
+        <div class="s2-grid-sellpoints-boxs">
+          <div class="s2-grid-sellpoints-title s2-grid-text4">
+            {{ section.settings.text15 }}
+            <span>{{ section.settings.text6 }}</span>
+          </div>
+          <img
+            
+            class="s2-grid-sellpoints-bgimgs"
+            src="https://cdn.shopify.com/s/files/1/0555/8432/5709/files/X1_PRO_03-AI.jpg?v=1753870306"
+            alt=""
+          />
+        </div>
+        <div class="s2-grid-sellpoints-boxs">
+          <div class="s2-grid-sellpoints-title s2-grid-text4">
+            {{ section.settings.text7 }}<br />
+            {{ section.settings.text8 }}
+          </div>
+          <img
+            
+            class="s2-grid-sellpoints-bgimgs"
+            src="https://cdn.shopify.com/s/files/1/0555/8432/5709/files/X1_PRO_06.jpg?v=1753870307"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+    <div class="s2-grid-sellpoints-content grid-mo-show">
+      <div class="s2-grid-sellpoints-boxs">
+        <div class="s2-grid-sellpoints-title s2-grid-text2">{{ section.settings.text9 }}<br /> {{ section.settings.text10 }}</div>
+        <img
+          
+          class="s2-grid-sellpoints-bgimgs"
+          src="https://cdn.shopify.com/s/files/1/0555/8432/5709/files/X1_PRO_01_0c1ce26b-812f-4304-be77-026f8c765765.jpg?v=1753928209"
+          alt=""
+        />
+      </div>
+      <div class="s2-grid-sellpoints-boxs">
+        <div class="s2-grid-sellpoints-title s2-grid-text1">
+         {{ section.settings.text11 }}<br />
+         {{ section.settings.text12 }}
+        </div>
+        <img
+          
+          class="s2-grid-sellpoints-bgimgs"
+          src="https://cdn.shopify.com/s/files/1/0555/8432/5709/files/X1_PRO_02-300_b1f85f18-a0fc-4b53-b0e5-dcb33e271d56.jpg?v=1753928210"
+          alt=""
+        />
+      </div>
+      <div class="s2-grid-sellpoints-boxs">
+        <div class="s2-grid-sellpoints-title s2-grid-text1">
+          {{ section.settings.text13 }}<br />
+          {{ section.settings.text14 }}
+        </div>
+        <img
+          
+          class="s2-grid-sellpoints-bgimgs"
+          src="https://cdn.shopify.com/s/files/1/0555/8432/5709/files/X1_PRO_03.jpg?v=1753928209"
+          alt=""
+        />
+      </div>
+      <div class="s2-grid-sellpoints-boxs">
+        <div class="s2-grid-sellpoints-title s2-grid-text1">
+          {{ section.settings.text2 }} <br />
+          {{ section.settings.text3 }}
+        </div>
+        <img
+          
+          class="s2-grid-sellpoints-bgimgs"
+          src="https://cdn.shopify.com/s/files/1/0555/8432/5709/files/X1_PRO_04_c6b70bd2-8c50-439d-bc78-94a3cc40bcba.jpg?v=1753928209"
+          alt=""
+        />
+      </div>
+      <div class="s2-grid-sellpoints-boxs">
+        <div class="s2-grid-sellpoints-title s2-grid-text1">
+          {{ section.settings.text15 }}<br />
+          <span
+            >{{ section.settings.text6 }}</span
+          >
+        </div>
+        <img
+          
+          class="s2-grid-sellpoints-bgimgs"
+          src="https://cdn.shopify.com/s/files/1/0555/8432/5709/files/X1_PRO_05-AI.jpg?v=1753928208"
+          alt=""
+        />
+      </div>
+      <div class="s2-grid-sellpoints-boxs">
+        <div class="s2-grid-sellpoints-title s2-grid-text2">
+          {{ section.settings.text16 }}<br />
+          {{ section.settings.text17 }}<br />
+          {{ section.settings.text18 }}
+        </div>
+        <img
+          
+          class="s2-grid-sellpoints-bgimgs"
+          src="https://cdn.shopify.com/s/files/1/0555/8432/5709/files/X1_PRO_06_d6bdf749-66df-4c84-9948-ba25427be725.jpg?v=1753928209"
+          alt=""
+        />
+      </div>
+    </div>   
+      </div>
+    </div>  
+
+{% schema %}
+{
+  "name": "x1-grid-sellpoints",
+  "tag": "section",
+  "class": "spaced-section",
+  "enabled_on": {
+    "templates": ["*"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "background-1",
+      "label": "t:sections.all.color_scheme.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": true,
+      "label": "t:sections.rich-text.settings.full_width.label"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.rich-text.settings.alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.rich-text.settings.alignment.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.rich-text.settings.alignment.options__3.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.rich-text.settings.alignment.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section-margin.header.content"
+    },
+    {
+      "type": "select",
+      "id": "margin_top",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-margin.options__6.label"
+        }
+      ],
+      "default": "no-indent",
+      "label": "t:sections.all.section-margin.margin_top.label"
+    },
+    {
+      "type": "select",
+      "id": "margin_bottom",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-margin.options__6.label"
+        }
+      ],
+      "default": "no-indent",
+      "label": "t:sections.all.section-margin.margin_bottom.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section-padding.header.content"
+    },
+    {
+      "type": "select",
+      "id": "padding_top",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-padding.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-padding.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-padding.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-padding.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-padding.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-padding.options__6.label"
+        }
+      ],
+      "default": "m",
+      "label": "t:sections.all.section-padding.padding_top.label"
+    },
+    {
+      "type": "select",
+      "id": "padding_bottom",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-padding.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-padding.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-padding.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-padding.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-padding.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-padding.options__6.label"
+        }
+      ],
+      "default": "m",
+      "label": "t:sections.all.section-padding.padding_bottom.label"
+    },
+        {
+          "type": "text",
+          "id": "text1",
+          "default": "2-in-1 Dual-to-Panorama Switching",
+          "label": "text1"
+        }, 
+        {
+          "type": "text",
+          "id": "text2",
+          "default": "Smart Event ",
+          "label": "text2"
+        }, 
+        {
+          "type": "text",
+          "id": "text3",
+          "default": "Tagging & Search",
+          "label": "text3"
+        }, 
+        {
+          "type": "text",
+          "id": "text4",
+          "default": "300° Max Pan Tracking System ",
+          "label": "text4"
+        }, 
+        {
+          "type": "text",
+          "id": "text5",
+          "default": "Dual Sentry & Patrol Mode",
+          "label": "text5"
+        }, 
+        {
+          "type": "text",
+          "id": "text6",
+          "default": "Face, People,Vehicles, Pets",
+          "label": "text6"
+        }, 
+        {
+          "type": "text",
+          "id": "text7",
+          "default": "Sun-Powerd ",
+          "label": "text7"
+        }, 
+        {
+          "type": "text",
+          "id": "text8",
+          "default": "Tracking System",
+          "label": "text8"
+        }, 
+        {
+          "type": "text",
+          "id": "text9",
+          "default": "2-in-1 Dual-to-Panorama ",
+          "label": "text9"
+        }, 
+        {
+          "type": "text",
+          "id": "text10",
+          "default": "Switching",
+          "label": "text10"
+        }, 
+        {
+          "type": "text",
+          "id": "text11",
+          "default": "300° Max Pan ",
+          "label": "text11"
+        }, 
+        {
+          "type": "text",
+          "id": "text12",
+          "default": "Tracking System",
+          "label": "text12"
+        }, 
+        {
+          "type": "text",
+          "id": "text13",
+          "default": "Dual Sentry &",
+          "label": "text13"
+        }, 
+        {
+          "type": "text",
+          "id": "text14",
+          "default": "Patrol Mode ",
+          "label": "text14"
+        }, 
+        {
+          "type": "text",
+          "id": "text15",
+          "default": "AI Detection",
+          "label": "text15"
+        }, 
+        {
+          "type": "text",
+          "id": "text16",
+          "default": "Sun-Powered",
+          "label": "text16"
+        }, 
+        {
+          "type": "text",
+          "id": "text17",
+          "default": "Tracking",
+          "label": "text17"
+        },     
+        {
+          "type": "text",
+          "id": "text18",
+          "default": "System",
+          "label": "text18"
+        },         
+  ],
+  "blocks": [
+    {
+      "type": "subheading",
+      "name": "t:sections.rich-text.blocks.subheading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "subheading",
+          "default": "Subheading",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading.label"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "t:sections.rich-text.blocks.heading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Heading for your section",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading.label"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            {
+              "value": "medium",
+              "label": "t:sections.rich-text.blocks.heading.settings.heading_size.options__1.label"
+            },
+            {
+              "value": "large",
+              "label": "t:sections.rich-text.blocks.heading.settings.heading_size.options__2.label"
+            }
+          ],
+          "default": "medium",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading_size.label"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.rich-text.blocks.text.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Description for your section.</p>",
+          "label": "t:sections.rich-text.blocks.text.settings.text.label"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "t:sections.rich-text.blocks.button.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button label",
+          "label": "t:sections.all.button.button_label.label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.all.button.button_link.label"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "options": [
+            {
+              "value": "primary",
+              "label": "t:sections.all.button.button_style.options__1.label"
+            },
+            {
+              "value": "secondary",
+              "label": "t:sections.all.button.button_style.options__2.label"
+            },
+            {
+              "value": "tertiary",
+              "label": "t:sections.all.button.button_style.options__3.label"
+            }
+          ],
+          "default": "primary",
+          "label": "t:sections.all.button.button_style.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "x1-grid-sellpoints",
+      "blocks": [
+        {
+          "type": "subheading"
+        },
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

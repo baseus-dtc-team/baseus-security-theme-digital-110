@@ -1,0 +1,831 @@
+{{ 'section-rich-text.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  {% render 'section-padding' %}
+  {% render 'section-margin' %}
+{%- endstyle -%}
+  <style>
+     .anchor{
+       overflow: hidden;
+     }
+      .animationbox1 {
+        height: 4680px;
+        position: relative;
+        background: linear-gradient(to right, #010100, #2b2e32 50%, #010100);
+        z-index: 3;
+      }
+      .animationfixed1 {
+        position: absolute;
+        top: 0;
+        bottom: auto;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        /* height: 100vh; */
+        width: 100%;
+        z-index: 3;
+        overflow: hidden;
+      }
+      .canvasbg1 {
+        display:block;
+        width: 100%;
+        /* max-height: 100%; */
+        background: linear-gradient(to right, #010100, #2b2e32 50%, #010100);
+      }
+     .canvasbg12{
+       display: none;
+       width: 100%;
+       background: linear-gradient(to right, #010100, #2b2e32 50%, #010100);   
+       /* max-height: 100%; */
+     }
+      .pro-title11 {
+        position: fixed;
+        z-index: 10;
+        top: 45vh;
+        left: 0;
+        color: white;
+        opacity: 1;
+        width: 100%;
+        display:none;
+        font-size: 4vw;
+        font-weight: bold;
+        line-height: 4.5vw;  
+        text-align: center;
+      }
+   .pro-title12 {
+    position: fixed;
+    z-index: 10;
+    top: 40vh;
+    left: 10vw;
+    color: white;
+    opacity: 0;
+    width: 62vw;
+    display: none;
+    border-bottom: 1px solid;
+    padding-bottom: 20px;
+      }
+   .pro-title13 {
+    position: fixed;
+    z-index: 10;
+    top: 40vh;
+    left: 10vw;
+    color: white;
+    opacity: 0;
+    width: 63vw;
+    display: none;
+    border-bottom: 1px solid;
+    padding-bottom: 20px;
+      } 
+   .pro-title14 {
+    position: fixed;
+    z-index: 10;
+    top: 38vh;
+    left: 10vw;
+    color: white;
+    opacity: 0;
+    width: 69vw;
+    display: none;
+    border-bottom: 1px solid;
+    padding-bottom: 20px;
+      } 
+   .pro-title15 {
+    position: fixed;
+    z-index: 10;
+    top: 45vh;
+    left: 10vw;
+    color: white;
+    opacity: 0;
+    width: 30vw;
+    display: none;
+      }  
+  .animation_title{
+    font-size: 2vw;
+    font-weight: bold;
+  }
+  .animation_content{
+    font-size: 1.2vw;
+  }
+   .animation_bottomgap1{
+    height:5px;
+    background-color: #ffffff;
+    position: relative;     
+    z-index: 3;
+  }
+  @media screen and (max-width: 750px) {
+      .animationfixed1{
+        /* align-items: center; */
+      }    
+      .canvasbg1 {
+        display: none;
+      }
+     .canvasbg12{
+       display: block;
+     }
+     .pro-title11 {
+        top: 45%;
+        padding: 0 10px;
+        left: 0;
+        font-size: 28px;
+        line-height: 30px;
+      }
+     .pro-title12 {
+        top: 65%;
+        width: 100vw;
+        padding: 0 20px;
+        text-align: center;
+        left: 0;
+        border-bottom: none;
+      }
+     .pro-title13 {
+        top: 65%;
+        width: 100vw;
+        padding: 0 20px;
+        text-align: center;
+        left: 0;
+        border-bottom: none;      
+     }
+    .pro-title14 {
+        top: 65%;
+        width: 100vw;
+        padding: 0 20px;
+        text-align: center;
+        left: 0;
+        border-bottom: none;   
+    }
+    .pro-title15 {
+        top: 75%;
+        width: 100vw;
+        padding: 0 20px;
+        text-align: center;
+        left: 0;
+        border-bottom: none;   
+    }    
+  .animation_title{
+    font-size: 24px;
+  }
+  .animation_content{
+    font-size: 16px;
+    line-height: 20px;
+  }
+  }
+  </style>
+     <!-- <div class="animation_bottomgap1"></div> -->
+    <div class="animationcontain1">
+    <div
+      class="animationbox1"
+      id="canvasbox1">
+      <div
+        class="pro-title11"
+        id="pro-title11">
+        <div>{{ section.settings.text1 }}<br />
+           {{ section.settings.text2 }}</div>
+        <!-- <div class="animation_content">Industry-leading sun-powered tracking system allows the solar panel to move 40° left and right with the sunlight.</div> -->
+      </div>
+       <div
+        class="pro-title12"
+        id="pro-title12">
+        <div class="animation_title">{{ section.settings.text3 }}</div>
+        <!-- <div class="animation_content">Auto Radar Patrol with Timer</div> -->
+      </div>
+       <div
+        class="pro-title13"
+        id="pro-title13">
+        <div class="animation_title">{{ section.settings.text4 }}</div>
+        <div class="animation_content">
+          {{ section.settings.text5 }}<br />
+          {{ section.settings.text6 }}<br />
+          {{ section.settings.text7 }}<br />
+          {{ section.settings.text8 }}<br />
+          {{ section.settings.text9 }}</div>
+      </div>
+       <div
+        class="pro-title14"
+        id="pro-title14">
+        <div class="animation_title">{{ section.settings.text10 }}</div>
+        <div class="animation_content"> {{ section.settings.text11 }}<br />
+          {{ section.settings.text12 }}</div>
+      </div>  
+       <div
+        class="pro-title15"
+        id="pro-title15">
+        <div class="animation_title">{{ section.settings.text13 }}</div>
+        <div class="animation_content">
+           {{ section.settings.text14 }}<br />
+           {{ section.settings.text15 }}<br />
+           {{ section.settings.text16 }}</div>
+      </div>        
+      <div
+        class="animationfixed1"
+        id="canvasfixed1">
+        <canvas
+          class="canvasbg1"
+          width="1920"
+          height="1080"
+          id="background1"></canvas>
+        <canvas
+          class="canvasbg12"
+          width="750"
+          height="1334"
+          id="background12"></canvas>
+      </div>
+    </div>
+    </div>
+  <!-- <div class="animation_bottomgap1"></div> -->   
+    <script>
+window.addEventListener('load', function() {
+  // 所有资源(包括图片)加载完成后再计算 
+      let screenWidth = window.screen.width
+      {% comment %} let head1 = document.querySelector('.announcement-bar').offsetHeight;
+      let header2 = document.querySelector('.shopify-section-header').offsetHeight;
+      let topslide = document.querySelector('.x1-slideshow-container').offsetHeight;
+      let topmulti = document.querySelector('.x1-grid-section').offsetHeight; {% endcomment %}
+      let topemail = document.querySelector('.vr2-anchor-content').offsetHeight;       
+      let distop1 = document.querySelector('.animationcontain1').getBoundingClientRect().top;  
+      var showtime1 = document.getElementById("canvasbox1");
+      var showfixed1 = document.getElementById("canvasfixed1");
+      if(screenWidth>750){var c1 = document.getElementById("background1");}else{var c1 = document.getElementById("background12");}
+      var ctx1 = c1.getContext("2d");
+      var protitle11 = document.getElementById("pro-title11");
+      var protitle12 = document.getElementById("pro-title12");
+      var protitle13 = document.getElementById("pro-title13");
+      var protitle14 = document.getElementById("pro-title14");      
+      var protitle15 = document.getElementById("pro-title15");           
+      var images1 = new Array();
+      var abc1 = 1;
+      var funTip1 = 0;
+      if(screenWidth>750){
+        var totalImages1 = 364;
+      for (var i = 1; i < totalImages1; i++) {
+        var img = new Image();
+        var slug = "000" + i;
+        img.src =
+          "https://cdn.shopify.com/s/files/1/0555/8432/5709/files/x1-lens-introduce-0" + slug.slice(-3) + ".jpg";
+        images1.push(img);
+      }
+    }else{
+      var totalImages1 = 364;
+      for (var i = 1; i < totalImages1; i++) {
+        var img = new Image();
+        var slug = "000" + i;
+        img.src =
+          "https://cdn.shopify.com/s/files/1/0555/8432/5709/files/x1mo-lens-introduce-0" + slug.slice(-3) + ".jpg";
+        images1.push(img);
+      }
+    }
+      setTimeout(() => {
+          ctx1.fillRect(0, 0, c1.width, c1.height- topemail);
+          ctx1.drawImage(images1[1], 0, 0, c1.width, c1.height- topemail);
+      }, 200);
+      function swiper(e) {
+        funTip1 = 1;
+        var scrollTop =
+          (window.pageYOffset || document.documentElement.scrollTop) - distop1
+        if(screenWidth > 750){
+          if (parseInt(scrollTop / 10) < 1) {
+          abc1 = 1;
+        } else {
+          abc1 = parseInt(scrollTop / 10);
+        } 
+        if (abc1 < 20) {
+          protitle11.style.display = "block";
+        if (abc1 > 5 && abc1 <= 15){
+          protitle11.style.opacity = 1 - (abc1 - 5) / 10;          
+        }  
+        }else if (abc1 >= 25 && abc1 < 40) {
+          protitle12.style.display = "block";
+          protitle12.style.opacity = (abc1 - 25) / 5;
+        }else if (abc1 >= 50 && abc1 < 65) {
+          protitle13.style.display = "block";
+          protitle13.style.opacity = (abc1 - 50) / 5;
+        }else if (abc1 >= 75 && abc1 < 95) {
+          protitle14.style.display = "block";
+          protitle14.style.opacity = (abc1 - 75) / 5;
+        }else if (abc1 >= 230 && abc1 < 370) {
+          protitle15.style.display = "block";
+          protitle15.style.opacity = (abc1 - 230) / 10;
+        }  else {
+          // protitle11.style.opacity = 0;
+          protitle12.style.opacity = 0;
+          protitle13.style.opacity = 0;
+          protitle14.style.opacity = 0;   
+          protitle15.style.opacity = 0;   
+              protitle11.style.display = "none";
+              protitle12.style.display = "none";
+              protitle13.style.display = "none";
+              protitle14.style.display = "none";    
+              protitle15.style.display = "none";  
+        }
+        if (abc1 <= 359) {
+          ctx1.fillRect(0, 0, c1.width, c1.height);
+          ctx1.drawImage(images1[abc1], 0, 0, c1.width, c1.height);
+        }
+        }else{
+         if (parseInt(scrollTop / 10) < 1) {
+          abc1 = 1;
+        } else {
+          abc1 = parseInt(scrollTop / 10);
+        }
+        
+        if (abc1 < 20) {
+          protitle11.style.display = "block";
+        if (abc1 > 5 && abc1 <= 15){
+          protitle11.style.opacity = 1 - (abc1 - 5) / 10;          
+        }  
+        }else if (abc1 >= 25 && abc1 < 40) {
+          protitle12.style.display = "block";
+          protitle12.style.opacity = (abc1 - 25) / 5;
+        }else if (abc1 >= 50 && abc1 < 65) {
+          protitle13.style.display = "block";
+          protitle13.style.opacity = (abc1 - 50) / 5;
+        }else if (abc1 >= 75 && abc1 < 95) {
+          protitle14.style.display = "block";
+          protitle14.style.opacity = (abc1 - 75) / 5;
+        }else if (abc1 >= 230 && abc1 < 370) {
+          protitle15.style.display = "block";
+          protitle15.style.opacity = (abc1 - 230) / 10;
+        }  else {
+          // protitle11.style.opacity = 0;
+          protitle12.style.opacity = 0;
+          protitle13.style.opacity = 0;
+          protitle14.style.opacity = 0;   
+          protitle15.style.opacity = 0;   
+              protitle11.style.display = "none";
+              protitle12.style.display = "none";
+              protitle13.style.display = "none";
+              protitle14.style.display = "none";    
+              protitle15.style.display = "none";  
+        }
+        if (abc1 <= 359) {
+          ctx1.fillRect(0, 0, c1.width, c1.height);
+          ctx1.drawImage(images1[abc1], 0, 0, c1.width, c1.height);
+        } 
+        }
+        if(screenWidth>750){var screenHeigt = 1080 - 146}else{var screenHeigt = 844}
+        if (
+          document.documentElement.scrollTop >=
+          distop1 + 4680 - screenHeigt
+        ) {
+          showfixed1.style.position = "absolute";
+          showfixed1.style.bottom = "0";
+          showfixed1.style.top = "auto";
+        } else {
+          showfixed1.style.position = "fixed";
+        if(screenWidth>750){
+          showfixed1.style.top = topemail + "px";
+        }else{
+          showfixed1.style.top = 0 + "px";
+        }                    
+          showfixed1.style.bottom = "auto";
+        }
+      }
+      // var advanceShow1 = `-${c1.height - head1 - header2}px`
+      var observer1 = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((i) => {
+            // 通过滚动判断是否是当前的监听对象
+            if (i.isIntersecting) {
+              showfixed1.style.position = "fixed";
+              protitle11.style.display = "block"
+              protitle12.style.display = "block"
+              protitle13.style.display = "block"
+              protitle14.style.display = "block"  
+              protitle15.style.display = "block"               
+              console.log("出现");
+              window.onscroll = swiper;
+              return;
+            } else {
+              showfixed1.style.position = "unset";
+              protitle11.style.display = "none"
+              protitle12.style.display = "none"
+              protitle13.style.display = "none"
+              protitle14.style.display = "none"  
+              protitle15.style.display = "none"               
+              console.log("消失");
+              if (funTip1 > 0) {
+                window.onscroll = undefined;
+              }
+              return;
+            }
+          });
+        },
+          {
+          rootMargin: screenWidth > 1000 ? `0px 0px -1080px 0px` : "0px 0px -712px 0px", // 提前150px进入可视区域时就加载图片，提高用户体验
+            // rootMargin: "0px 0px " + advanceShow1 + " 0px"
+        }  
+      );
+      // observer1.observe(showtime1);
+      function addEvent1(obj,type,fn){
+    if(obj.attachEvent){ //ie
+        obj.attachEvent('on'+type,function(){
+            fn.call(obj);
+        })
+    }else{
+        obj.addEventListener(type,fn,false);
+    }
+}
+addEvent1(window,'scroll',function(){
+          var scrollTopShow = (window.pageYOffset || document.documentElement.scrollTop)
+      if(scrollTopShow < distop1 + 4680 ){
+         observer1.observe(showtime1);
+      }else{
+        observer1.unobserve(showtime1);
+        showfixed1.style.position = "unset";
+      }
+});
+      window.onbeforeunload = function () {
+        //刷新后页面自动回到顶部
+        document.documentElement.scrollTop = 0; //ie下
+        document.body.scrollTop = 0; //非ie
+      };
+      });      
+    </script>
+{% schema %}
+{
+  "name": "x1-animation1",
+  "tag": "section",
+  "class": "spaced-section",
+  "enabled_on": {
+    "templates": ["*"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "background-1",
+      "label": "t:sections.all.color_scheme.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": true,
+      "label": "t:sections.rich-text.settings.full_width.label"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.rich-text.settings.alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.rich-text.settings.alignment.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.rich-text.settings.alignment.options__3.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.rich-text.settings.alignment.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section-margin.header.content"
+    },
+    {
+      "type": "select",
+      "id": "margin_top",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-margin.options__6.label"
+        }
+      ],
+      "default": "no-indent",
+      "label": "t:sections.all.section-margin.margin_top.label"
+    },
+    {
+      "type": "select",
+      "id": "margin_bottom",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-margin.options__6.label"
+        }
+      ],
+      "default": "no-indent",
+      "label": "t:sections.all.section-margin.margin_bottom.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section-padding.header.content"
+    },
+    {
+      "type": "select",
+      "id": "padding_top",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-padding.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-padding.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-padding.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-padding.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-padding.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-padding.options__6.label"
+        }
+      ],
+      "default": "m",
+      "label": "t:sections.all.section-padding.padding_top.label"
+    },
+    {
+      "type": "select",
+      "id": "padding_bottom",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-padding.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-padding.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-padding.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-padding.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-padding.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-padding.options__6.label"
+        }
+      ],
+      "default": "m",
+      "label": "t:sections.all.section-padding.padding_bottom.label"
+    },
+        {
+          "type": "text",
+          "id": "text1",
+          "default": "World's First Smart Al",
+          "label": "text1"
+        }, 
+        {
+          "type": "text",
+          "id": "text2",
+          "default": "Dual-Tracking Security Camera",
+          "label": "text2"
+        }, 
+        {
+          "type": "text",
+          "id": "text3",
+          "default": "PIR Motion Detection",
+          "label": "text3"
+        }, 
+        {
+          "type": "text",
+          "id": "text4",
+          "default": "Independent 3K Camera",
+          "label": "text4"
+        }, 
+        {
+          "type": "text",
+          "id": "text5",
+          "default": "f/2.0 Aperture",
+          "label": "text5"
+        }, 
+        {
+          "type": "text",
+          "id": "text6",
+          "default": "125°FOV",
+          "label": "text6"
+        }, 
+        {
+          "type": "text",
+          "id": "text7",
+          "default": "55° Horizontal Rotation",
+          "label": "text7"
+        }, 
+        {
+          "type": "text",
+          "id": "text8",
+          "default": "26ft Detection Coverage",
+          "label": "text8"
+        }, 
+        {
+          "type": "text",
+          "id": "text9",
+          "default": "Smart Al Tracking",
+          "label": "text9"
+        }, 
+        {
+          "type": "text",
+          "id": "text10",
+          "default": "Spotlight",
+          "label": "text10"
+        }, 
+        {
+          "type": "text",
+          "id": "text11",
+          "default": "100LM",
+          "label": "text11"
+        }, 
+        {
+          "type": "text",
+          "id": "text12",
+          "default": "Color Night Vision (See up to 26ft)",
+          "label": "text12"
+        }, 
+        {
+          "type": "text",
+          "id": "text13",
+          "default": "Dual Merged 4K Cameras",
+          "label": "text13"
+        }, 
+        {
+          "type": "text",
+          "id": "text14",
+          "default": "300° Pan Coverage",
+          "label": "text14"
+        }, 
+        {
+          "type": "text",
+          "id": "text15",
+          "default": "Cross-Cam & Independent-Cam Al Tracking",
+          "label": "text15"
+        }, 
+        {
+          "type": "text",
+          "id": "text16",
+          "default": "Auto Patrol with Timer",
+          "label": "text16"
+        }   
+  ],
+  "blocks": [
+    {
+      "type": "subheading",
+      "name": "t:sections.rich-text.blocks.subheading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "subheading",
+          "default": "Subheading",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading.label"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "t:sections.rich-text.blocks.heading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Heading for your section",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading.label"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            {
+              "value": "medium",
+              "label": "t:sections.rich-text.blocks.heading.settings.heading_size.options__1.label"
+            },
+            {
+              "value": "large",
+              "label": "t:sections.rich-text.blocks.heading.settings.heading_size.options__2.label"
+            }
+          ],
+          "default": "medium",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading_size.label"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.rich-text.blocks.text.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Description for your section.</p>",
+          "label": "t:sections.rich-text.blocks.text.settings.text.label"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "t:sections.rich-text.blocks.button.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button label",
+          "label": "t:sections.all.button.button_label.label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.all.button.button_link.label"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "options": [
+            {
+              "value": "primary",
+              "label": "t:sections.all.button.button_style.options__1.label"
+            },
+            {
+              "value": "secondary",
+              "label": "t:sections.all.button.button_style.options__2.label"
+            },
+            {
+              "value": "tertiary",
+              "label": "t:sections.all.button.button_style.options__3.label"
+            }
+          ],
+          "default": "primary",
+          "label": "t:sections.all.button.button_style.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "x1-animation1",
+      "blocks": [
+        {
+          "type": "subheading"
+        },
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

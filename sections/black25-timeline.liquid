@@ -1,0 +1,245 @@
+<style>
+    .timeline-contain {
+      background: #191e2a;
+      padding: 30px;
+    }
+    .timeline-contain h2 {
+      font-size: 44px;
+      text-align: center;
+      color: #E1C381;
+    }
+    .timeline-timebox {
+      padding: 20px;
+      width: max-content;
+      background: #767471;
+      border-radius: 6px;
+      margin: 10px 30px;
+      min-width: 200px;
+    }
+    .timeline-timebox h3 {
+      margin: 0;
+      font-size: 26px;
+    }
+    .timeline-timebox p {
+      margin: 0;
+    }
+    .timeline-desbox {
+      font-size: 16px;
+      display: flex;
+      color: #767471;
+    }
+    .timeline-desbox img {
+      height: 24px;
+      margin-right: 10px;
+    }
+    .timeline-timeboxs {
+      display: flex;
+      align-items: center;
+    }
+    .timeline-lines {
+      height: 3px;
+      width: 100%;
+      background: #464646;
+    }
+    .timeline-bgcontain {
+      display: flex;
+    }
+    .timeline-bg {
+      width: 100%;
+    }
+    .timeline-lines-trans {
+      background: transparent;
+    }
+    .timeline-desbox-contain {
+      width: max-content;
+      background: transparent;
+      border-radius: 6px;
+      margin: 10px 30px;
+      min-width: 200px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .timeline-lines-transparent {
+      background: transparent;
+    }
+    .timeline-timeboxs .actives .timeline-desbox {
+      color: #FFE5CF ; 
+    }
+    .timeline-timeboxs .active {
+      color: #000000;
+      background: linear-gradient(180deg, #FBEEB9, #CFAF7A);
+    }
+    @media screen and (max-width: 750px) {
+      .timeline-contain h2 {
+        font-size: 28px;
+      }
+      .timeline-contain {
+        overflow: hidden;
+      }
+      .timeline-bgcontain {
+        overflow: auto;
+      }
+      .timeline-bg {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      /* .timeline-lines {
+        width: 100px;
+      } */
+      .timeline-timebox {
+        padding: 15px;
+        width: max-content;
+        border-radius: 6px;
+        margin: 10px 20px;
+        min-width: 140px;
+      }
+      .timeline-timebox h3 {
+        font-size: 20px;
+      }
+      .timeline-lines-transparent {
+        display: none;
+      }
+      .timeline-desbox-contain {
+        margin: 10px 20px;
+      }
+      /* .timeline-desbox-contain {
+        min-width: 120px;
+      } */
+    }
+</style>
+
+<section>
+    <div class="timeline-contain">
+      <h2>Black Friday Timeline</h2>
+      <div class="timeline-bgcontain">
+        <div class="timeline-bg">
+          <div class="timeline-timeboxs">
+            <div class="timeline-lines timeline-lines-transparent"></div>
+            <div class="timeline-timebox active">
+              <h3>11.10-11.19</h3>
+              <p>Early Bird Sale</p>
+            </div>
+            <div class="timeline-lines"></div>
+          </div>
+          <div class="timeline-timeboxs">
+            <div class="timeline-lines timeline-lines-transparent"></div>
+            <div class="timeline-desbox-contain actives">
+              <div class="timeline-desbox">
+                <span
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0555/8432/5709/files/Black_Friday_2025_zhuanpan.png?v=1762502276"
+                    alt="" /></span
+                >Spin Wheel
+              </div>
+              <div class="timeline-desbox">
+                <span
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0555/8432/5709/files/Black_Friday_2025_jiangpinpeizhi.png?v=1762502276"
+                    alt=""
+                /></span>
+                Giveaway
+              </div>
+            </div>
+            <div class="timeline-lines timeline-lines-trans"></div>
+          </div>
+        </div>
+        <div class="timeline-bg">
+          <div class="timeline-timeboxs">
+            <div class="timeline-lines"></div>
+            <div class="timeline-timebox active">
+              <h3>11.20-12.1</h3>
+              <p>Main Sale</p>
+            </div>
+            <div class="timeline-lines"></div>
+          </div>
+          <div class="timeline-timeboxs">
+            <div class="timeline-lines timeline-lines-trans"></div>
+            <div class="timeline-desbox-contain actives">
+              <div class="timeline-desbox">
+                <span
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0555/8432/5709/files/Black_Friday_2025_shengqian.png?v=1762502276"
+                    alt="" /></span
+                >Buy More Save More
+              </div>
+              {% comment %} <div class="timeline-desbox">
+                <span
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0555/8432/5709/files/Black_Friday_2025_74545538-6774-47c8-9f60-780bf7525bda.png?v=1762502276"
+                    alt=""
+                /></span>
+                Amazon's Deals
+              </div>
+              <div class="timeline-desbox">
+                <span
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0555/8432/5709/files/Black_Friday_2025_jisutiyan.png?v=1762502275"
+                    alt=""
+                /></span>
+                Flash Deals
+              </div>               {% endcomment %}
+            </div>
+            <div class="timeline-lines timeline-lines-trans"></div>
+          </div>
+        </div>
+        <div class="timeline-bg">
+          <div class="timeline-timeboxs">
+            <div class="timeline-lines"></div>
+            <div class="timeline-timebox active">
+              <h3>12.2-12.8</h3>
+              <p>After-Sale</p>
+            </div>
+            <div class="timeline-lines timeline-lines-transparent"></div>
+          </div>
+          <div class="timeline-timeboxs">
+            <div class="timeline-lines timeline-lines-trans"></div>
+            <div class="timeline-desbox-contain actives">
+              <div class="timeline-desbox">
+                <span
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0555/8432/5709/files/Black_Friday_2025_youhuiquan.png?v=1762502276"
+                    alt="" /></span
+                >Big Coupon
+              </div>
+              {% comment %} <div class="timeline-desbox">
+                <span
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/Security_S1_Lite_3.png?v=1759891111"
+                    alt=""
+                /></span>
+                Gift Card Sale
+              </div> {% endcomment %}
+            </div>
+            <div class="timeline-lines timeline-lines-trans"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "black25-timeline",
+  "class": "shopify-section--black25-timeline",
+  "blocks": [
+  ],
+  "settings": [
+    {
+      "type": "color",
+      "id": "bgColor",
+      "label": "Background",
+      "default": "#fff"
+    },
+    
+  ],
+  "presets": [
+    {
+      "name": "black25-timeline",
+      "blocks": [
+      ]
+    }
+  ]
+}
+{% endschema %}

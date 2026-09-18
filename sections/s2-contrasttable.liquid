@@ -1,0 +1,709 @@
+{{ 'section-rich-text.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  {% render 'section-padding' %}
+  {% render 'section-margin' %}
+{%- endstyle -%}
+    <style>
+      table {
+        border-collapse: collapse;
+        /* width: 100%; */
+        margin: 30px;
+      }
+      table.borderless {
+        border: none;
+        margin-top: -90px;
+      }
+      table.borderless td,
+      table.borderless th {
+        border: none;
+        padding: 20px 10px;
+        text-align: center;
+        width: 20%;
+        font-size: 16px;
+      }
+      .borderless tr {
+        border-bottom: 1px solid #939393;
+      }
+      .toggle-btn {
+        padding: 24px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        background: transparent;
+        font-size: 18px;
+        font-weight: bold;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: max-content;
+      }
+      .toggle-btn-text {
+        margin-right: 8px;
+      }
+      .toggle-btn-img {
+        width: 24px;
+      }
+      .toggle-btn:hover {
+        /* background-color: #45a049; */
+      }
+      .hidden {
+        display: none;
+      }
+      .s1pro-contrast-content {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        background: #f6f6f6;
+        border-radius: 10px;
+        margin-top: 110px;
+        align-items: center;        
+      }
+      .contrast-title {
+        font-weight: bold;
+        font-size: 20px !important;
+      }
+      .s1pro-contrast-probox {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+      }
+      .s1pro-contrast-imgs {
+        width: 150px;
+      }
+      .s1pro-contrast-protitle {
+        font-size: 18px;
+        font-weight: bold;
+      }
+      .s1pro-contrast-proprice {
+        font-size: 16px;
+      }
+      .s1pro-contrast-probtn {
+        background: #fff101;
+        border-radius: 90px;
+        padding: 10px 30px;
+        width: max-content;
+        cursor: pointer;
+        font-size: 16px;
+        border: 1px solid #fff101;
+        text-decoration: none;
+      }
+      .s1pro-contrast-probtn:hover {
+        background: #000000;
+        color: #ffffff;
+        border: 1px solid #000000;
+      }
+      .s1pro-contrast-probtncolor {
+        background: #ffffff;
+        border: 1px solid #f2f2f2;
+      }
+      .s1pro-contrast-probox img {
+        transition: all 0.6s;
+      }
+      .s1pro-contrast-probox img:hover {
+        transform: scale(1.1);
+      }
+
+      @media screen and (max-width: 750px) {
+        .s1pro-contrast-content {
+          margin-top: 30px;
+          width: 100%;
+          overflow: scroll;
+          justify-content: flex-start;
+          align-items: flex-start;
+        }
+        table.borderless {
+          margin-top: 0;
+        }
+        table.borderless td,
+        table.borderless th {
+          padding: 10px;
+          font-size: 14px;
+        }
+        .contrast-title {
+          font-size: 16px !important;
+        }
+        .s1pro-contrast-probox {
+          width: 180px;
+        }
+        .s1pro-contrast-imgs {
+          width: 120px;
+        }
+        .toggle-btn {
+          padding: 16px;
+        }
+        table {
+          margin: 10px;
+        }
+      }
+    </style>
+<div class="rich-text {% if section.settings.full_width %}rich-text--full-width {% else %}container{% endif %} rich-text--align-{{ section.settings.alignment }} shopify-n1-sellpoints">
+  <div class="rich-text__blocks {% if section.settings.full_width %}container{% endif %} color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'subheading' -%}
+          <div
+            class="rich-text__subheading subtitle"
+            {{ block.shopify_attributes }}
+          >
+            {{ block.settings.subheading | escape }}
+          </div>
+        {%- when 'heading' -%}
+          <h2
+            class="rich-text__heading title--section {% if block.settings.heading_size == 'medium' %}h2{% else %}h1{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            {{ block.settings.heading }}
+          </h2>
+        {%- when 'text' -%}
+          <div class="rich-text__text" {{ block.shopify_attributes }}>
+            {{ block.settings.text }}
+          </div>
+        {%- when 'button' -%}
+          <a
+            {% if block.settings.button_link == blank %}
+              aria-disabled="true"
+            {% else %}
+              href="{{ block.settings.button_link }}"
+            {% endif %}
+            class="button button--{{ block.settings.button_style }} focus-inset"
+            {{ block.shopify_attributes }}
+          >
+            {{ block.settings.button_label | escape }}
+          </a>
+      {%- endcase -%}
+    {%- endfor -%}
+    <div class="s1pro-contrast-content">
+      <table class="borderless" id="toggleTable">
+        <tr style="border-bottom: none">
+          <td class="contrast-title"></td>
+          <td>
+            <div class="s1pro-contrast-probox">
+              <img
+                class="s1pro-contrast-imgs"
+                src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/Baseus_Security_S2_Outdoor_Camera_4K_3-landingpage.png"
+                alt=""
+              />
+              <div class="s1pro-contrast-protitle">
+                S2 Outdoor<br />
+                Security Camera
+              </div>
+              <div class="s1pro-contrast-proprice">{{ section.settings.product1.price | money_with_currency }}</div>
+              <a href="{{ section.settings.product1.url }}" class="s1pro-contrast-probtn">Shop Now</a>
+            </div>
+          </td>
+          <td>
+            <div class="s1pro-contrast-probox">
+              <img
+                class="s1pro-contrast-imgs"
+                src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/Baseus_Security_S1_Lite_Outdoor_Camera_2K_1-landingpage20251031-155150.png"
+                alt=""
+              />
+              <div class="s1pro-contrast-protitle">
+                S1 Lite Outdoor<br />
+                Security Camera
+              </div>
+              <div class="s1pro-contrast-proprice">{{ section.settings.product2.price | money_with_currency }}</div>
+              <a href="{{ section.settings.product2.url }}" class="s1pro-contrast-probtn s1pro-contrast-probtncolor">
+                Learn More
+              </a>
+            </div>
+          </td>
+          <td>
+            <div class="s1pro-contrast-probox">
+              <img
+                class="s1pro-contrast-imgs"
+                src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/Baseus_Security_N1_Outdoor_CameraS1.png?v=1743587139"
+                alt=""
+              />
+              <div class="s1pro-contrast-protitle">
+                S1 Outdoor<br />
+                Security Camera
+              </div>
+              <div class="s1pro-contrast-proprice">{{ section.settings.product3.price | money_with_currency }}</div>
+              <a href="{{ section.settings.product3.url }}" class="s1pro-contrast-probtn s1pro-contrast-probtncolor">
+                Learn More
+              </a>
+            </div>
+          </td>
+          <td>
+            <div class="s1pro-contrast-probox">
+              <img
+                class="s1pro-contrast-imgs"
+                src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/Baseus_Security_N1_Outdoor_CameraS1_Pro.png?v=1743587139"
+                alt=""
+              />
+              <div class="s1pro-contrast-protitle">
+                S1 Pro Outdoor<br />
+                Security Camera
+              </div>
+              <div class="s1pro-contrast-proprice">{{ section.settings.product4.price | money_with_currency }}</div>
+              <a href="{{ section.settings.product4.url }}" class="s1pro-contrast-probtn s1pro-contrast-probtncolor">
+                Learn More
+              </a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="contrast-title">Cameras</td>
+          <td>Single</td>
+          <td>Single</td>
+          <td>Single</td>
+          <td>Dual</td>
+        </tr>
+        <tr>
+          <td class="contrast-title">Video Resolution</td>
+          <td>4K</td>
+          <td>2K</td>
+          <td>2K</td>
+          <td>3K + 3K</td>
+        </tr>
+        <tr>
+          <td class="contrast-title">Field of View</td>
+          <td>145°</td>
+          <td>135°</td>
+          <td>145°</td>
+          <td>120°&45°</td>
+        </tr>
+        <tr>
+          <td class="contrast-title">Details at Distance</td>
+          <td>12M</td>
+          <td>8M</td>
+          <td>8M</td>
+          <td>20M</td>
+        </tr>
+        <tr>
+          <td class="contrast-title">Spotlight</td>
+          <td>Yes</td>
+          <td>Yes</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td class="contrast-title">Night Vision</td>
+          <td>Color / Black & White</td>
+          <td>Color / Black & White</td>
+          <td>Color / Black & White</td>
+          <td>Color / Black & White</td>
+        </tr>
+        <tr>
+          <td class="contrast-title">Power Source</td>
+          <td>Solar Powered & Battery Powered</td>
+          <td>Solar Powered & Battery Powered</td>
+          <td>Solar Powered & Battery Powered</td>
+          <td>Solar Powered & Battery Powered</td>
+        </tr>
+        <tr class="tableclass hidden">
+          <td class="contrast-title">Battery Life</td>
+          <td>150 Days</td>
+          <td>150 Days</td>
+          <td>180 Days</td>
+          <td>270 Days</td>
+        </tr>
+        <tr class="tableclass hidden">
+          <td class="contrast-title">AI</td>
+          <td>Motion/Human Detection/Face/Vehicles/Pets</td>
+          <td>Motion/Human Detection</td>
+          <td>Motion/Human Detection</td>
+          <td>Motion/Human/Vehicle Detection</td>
+        </tr>
+        <tr class="tableclass hidden">
+          <td class="contrast-title">Wi-Fi</td>
+          <td>2.4GHz Only</td>
+          <td>2.4GHz Only</td>
+          <td>2.4GHz Only</td>
+          <td>2.4GHz Only</td>
+        </tr>
+        <tr class="tableclass hidden">
+          <td class="contrast-title">Monthly Fee</td>
+          <td>Zero</td>
+          <td>Zero</td>
+          <td>No</td>
+          <td>No</td>
+        </tr>
+        <tr class="tableclass hidden">
+          <td class="contrast-title">Storage</td>
+          <td>
+            Up to 512GB Mirco SD<br />
+            Expandable Storage
+          </td>
+          <td>
+            Up to 512GB Mirco SD<br />
+            Expandable Storage
+          </td>
+          <td>
+            Built-In EMMC:8GB<br />
+            Optional: Local Hard Drive (up to 16TB)<br />
+            with HomeStation
+          </td>
+          <td>
+            Built-In EMMC:16GB<br />
+            Optional: Local Hard Drive (up to 16TB)<br />
+            with HomeStation
+          </td>
+        </tr>
+        <tr class="tableclass hidden">
+          <td class="contrast-title">Mounting Type</td>
+          <td>Screw Mount</td>
+          <td>Screw Mount</td>
+          <td>Screw Mount</td>
+          <td>Screw Mount</td>
+        </tr>
+        <tr class="tableclass hidden">
+          <td class="contrast-title">Weather Proof</td>
+          <td>IP67</td>
+          <td>IP67</td>
+          <td>IP67</td>
+          <td>IP67</td>
+        </tr>
+      </table>
+      <div class="toggle-btn" onclick="toggleTable()">
+        <span class="toggle-btn-text">View ALL</span>
+        <img
+          class="toggle-btn-img"
+          src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/img_v3_02lj_1a21c517-30a0-4298-9e6f-4fd4a6bc53bg.png"
+          alt=""
+        />
+      </div>
+    </div>  
+  </div>
+</div>
+    <script>
+      function toggleTable() {
+        // const table = document.getElementById("toggleTable");
+        const button = document.querySelector(".toggle-btn-text");
+        const tableclass = document.querySelectorAll(".tableclass");
+        const toggleimg = document.querySelector(".toggle-btn-img");
+
+        if (button.textContent == "View ALL") {
+          for (let i = 0; i < tableclass.length; i++) {
+            tableclass[i].classList.remove("hidden");
+          }
+          // table.classList.remove("hidden");
+          button.textContent = "Pack Up";
+          toggleimg.style.transform = "rotate(180deg)";
+        } else {
+          for (let i = 0; i < tableclass.length; i++) {
+            tableclass[i].classList.add("hidden");
+          }
+          // table.classList.add("hidden");
+          button.textContent = "View ALL";
+          toggleimg.style.transform = "rotate(0deg)";
+        }
+      }
+    </script>
+{% schema %}
+{
+  "name": "s2-contrasttable",
+  "tag": "section",
+  "class": "spaced-section",
+  "enabled_on": {
+    "templates": ["*"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "background-1",
+      "label": "t:sections.all.color_scheme.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": true,
+      "label": "t:sections.rich-text.settings.full_width.label"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.rich-text.settings.alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.rich-text.settings.alignment.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.rich-text.settings.alignment.options__3.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.rich-text.settings.alignment.label"
+    },
+        {
+          "type": "product",
+          "id": "product1",
+          "label": "product1"
+        }, 
+        {
+          "type": "product",
+          "id": "product2",
+          "label": "product2"
+        }, 
+        {
+          "type": "product",
+          "id": "product3",
+          "label": "product3"
+        }, 
+        {
+          "type": "product",
+          "id": "product4",
+          "label": "product4"
+        },     
+    {
+      "type": "header",
+      "content": "t:sections.all.section-margin.header.content"
+    },
+    {
+      "type": "select",
+      "id": "margin_top",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-margin.options__6.label"
+        }
+      ],
+      "default": "no-indent",
+      "label": "t:sections.all.section-margin.margin_top.label"
+    },
+    {
+      "type": "select",
+      "id": "margin_bottom",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-margin.options__6.label"
+        }
+      ],
+      "default": "no-indent",
+      "label": "t:sections.all.section-margin.margin_bottom.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section-padding.header.content"
+    },
+    {
+      "type": "select",
+      "id": "padding_top",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-padding.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-padding.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-padding.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-padding.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-padding.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-padding.options__6.label"
+        }
+      ],
+      "default": "m",
+      "label": "t:sections.all.section-padding.padding_top.label"
+    },
+    {
+      "type": "select",
+      "id": "padding_bottom",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-padding.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-padding.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-padding.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-padding.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-padding.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-padding.options__6.label"
+        }
+      ],
+      "default": "m",
+      "label": "t:sections.all.section-padding.padding_bottom.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "subheading",
+      "name": "t:sections.rich-text.blocks.subheading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "subheading",
+          "default": "Subheading",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading.label"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "t:sections.rich-text.blocks.heading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Heading for your section",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading.label"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            {
+              "value": "medium",
+              "label": "t:sections.rich-text.blocks.heading.settings.heading_size.options__1.label"
+            },
+            {
+              "value": "large",
+              "label": "t:sections.rich-text.blocks.heading.settings.heading_size.options__2.label"
+            }
+          ],
+          "default": "medium",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading_size.label"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.rich-text.blocks.text.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Description for your section.</p>",
+          "label": "t:sections.rich-text.blocks.text.settings.text.label"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "t:sections.rich-text.blocks.button.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button label",
+          "label": "t:sections.all.button.button_label.label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.all.button.button_link.label"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "options": [
+            {
+              "value": "primary",
+              "label": "t:sections.all.button.button_style.options__1.label"
+            },
+            {
+              "value": "secondary",
+              "label": "t:sections.all.button.button_style.options__2.label"
+            },
+            {
+              "value": "tertiary",
+              "label": "t:sections.all.button.button_style.options__3.label"
+            }
+          ],
+          "default": "primary",
+          "label": "t:sections.all.button.button_style.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "s2-contrasttable",
+      "blocks": [
+        {
+          "type": "subheading"
+        },
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

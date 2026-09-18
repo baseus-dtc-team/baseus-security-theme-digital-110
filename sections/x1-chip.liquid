@@ -1,0 +1,519 @@
+{{ 'section-rich-text.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  {% render 'section-padding' %}
+  {% render 'section-margin' %}
+{%- endstyle -%}
+  <style>
+     .pc-show {
+      display: block;
+    }
+    .mo-show {
+      display: none;
+    }
+    .x1-chip-contain {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .x1-chip-titlebox {
+      text-align: center;
+      margin-bottom: 40px;
+      color: #ffffff;
+    }
+    .x1-chip-title {
+      font-size: 36px;
+      font-weight: bold;
+      margin: 10px;
+    }
+    .x1-chip-des {
+      font-size: 20px;
+    }
+    .x1-chip-imgsbox {
+      width: 100%;
+      max-width: 1200px;
+      padding: 0 30px;
+    }
+    .x1-chip-img {
+      width: 100%;
+    }
+    .description tep {
+    display: none;
+}
+    @media screen and (max-width: 750px) {
+      .pc-show {
+        display: none;
+      }
+      .mo-show {
+        display: block;
+      }
+      .x1-chip-titlebox {
+        margin-bottom: 30px;
+      }
+      .x1-chip-title {
+        font-size: 26px;
+        margin: 5px;
+      }
+      .x1-chip-des {
+        font-size: 16px;
+      }
+     .x1-chip-imgsbox {
+      {% comment %} width: 100%;
+      max-width: 1200px; {% endcomment %}
+      padding: 0;
+    }  
+    .chip-email {
+      padding: 30px 0;
+    }   
+    }
+  </style>
+ <div class="rich-text {% if section.settings.full_width %}rich-text--full-width {% else %}container{% endif %} rich-text--align-{{ section.settings.alignment }}">
+  <div class="rich-text__blocks {% if section.settings.full_width %}container{% endif %} color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">   
+     <div class="x1-chip-contain">
+      <div class="x1-chip-titlebox">
+        <div class="x1-chip-title">{{ section.settings.text1 }}</div>
+        <div class="x1-chip-des">
+          {{ section.settings.text2 }}
+        </div>
+      </div>
+      <div class="x1-chip-imgsbox">
+        <img
+          
+          class="x1-chip-img pc-show"
+          src="{{ section.settings.text3 }}"
+          alt=""
+        />
+        <img
+          
+          class="x1-chip-img mo-show"
+          src="{{ section.settings.text4 }}"
+          alt=""
+        />
+      </div>
+    </div>
+{% comment %} <div id="vsscript_217467_751124"></div><script async type="text/javascript" src="https://app.viralsweep.com/vsa-widget-02f75a-217467.js?sid=217467_751124"></script>
+<div id="vsscript_217467_499519"></div><script async type="text/javascript" src="https://app.viralsweep.com/vsa-lightbox-02f75a-217467.js?sid=217467_499519"></script> {% endcomment %}
+
+    <div class="section1-box5 chip-email">
+      <div class="rule-titlebox email-title">
+        {{ section.settings.text5 }}
+      </div>
+      <div class="email-subtitle">
+        {{ section.settings.text6 }}
+      </div>
+{% comment %} <div class="newsletter">
+  <div class="container">
+    <div class="newsletter__inner newsletter__inner--{{ section.settings.align_content }} home-newsletter-box">
+      <div class="newsletter__form">
+        {% render 'section-text', section: section, class: 'newsletter' %}
+        {% form 'customer', class: 'newsletter-form' %}
+          <div class="newsletter-form__inner">
+            <input type="hidden" name="contact[tags]" value="X1PRO">
+            <div class="newsletter-form__field-wrapper home-newsletter-box">
+              <div class="field">
+                <input
+                  id="NewsletterForm--{{ section.id }}"
+                  type="email"
+                  name="contact[email]"
+                  class="field__input field"
+                  value="{{ form.email }}"
+                  aria-required="true"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  autocomplete="email"
+                  pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+                  {% if form.errors %}
+                    autofocus
+                    aria-invalid="true"
+                    aria-describedby="Newsletter-error--{{ section.id }}"
+                  {% elsif form.posted_successfully? %}
+                    aria-describedby="Newsletter-success--{{ section.id }}"
+                  {% endif %}
+                  placeholder="{{ 'newsletter.label' | t }}"
+                  required
+                >
+                <label class="visually-hidden" for="NewsletterForm--{{ section.id }}">
+                  {{ 'newsletter.label' | t }}
+                </label>
+              </div>
+              {%- if form.errors -%}
+                <small
+                  class="newsletter-form__message form__message"
+                  id="Newsletter-error--{{ section.id }}"
+                >
+                  {%- render 'icon-error' -%}
+                  {{- form.errors.translated_fields.email | capitalize }}
+                  {{ form.errors.messages.email -}}
+                </small>
+              {%- endif -%}
+            </div>
+            <button
+              type="submit"
+              class="newsletter__button button button--{{ section.settings.button_style }} focus-inset home-frombtn"
+              name="commit"
+            >
+              <span>{{ 'newsletter.button_label' | t }}</span>
+            </button>
+          </div>
+          {%- if form.posted_successfully? -%}
+            <h3
+              class="newsletter-form__message newsletter-form__message--success form__message"
+              id="Newsletter-success--{{ section.id }}"
+              tabindex="-1"
+              autofocus
+            >
+              {% render 'icon-success' -%}
+              {{- 'newsletter.success' | t }}
+            </h3>
+          {%- endif -%}
+        {% endform %}
+        {% if section.settings.newsletter_text %}
+          <div class="newsletter__text body-small">
+            {{ section.settings.newsletter_text }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div> {% endcomment %}
+          <div class="email-des">{{ section.settings.text7 }}</div>
+<script type="text/javascript" src="https://app.ecardwidget.com/embed/widget/wfxfxgc7fk8"></script><div id="ecardwidget_id_wfxfxgc7fk8"></div>    
+    </div>    
+      </div>
+    </div>  
+{% schema %}
+{
+  "name": "x1-chip",
+  "tag": "section",
+  "class": "spaced-section",
+  "enabled_on": {
+    "templates": ["*"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "background-1",
+      "label": "t:sections.all.color_scheme.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": true,
+      "label": "t:sections.rich-text.settings.full_width.label"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.rich-text.settings.alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.rich-text.settings.alignment.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.rich-text.settings.alignment.options__3.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.rich-text.settings.alignment.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section-margin.header.content"
+    },
+    {
+      "type": "select",
+      "id": "margin_top",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-margin.options__6.label"
+        }
+      ],
+      "default": "no-indent",
+      "label": "t:sections.all.section-margin.margin_top.label"
+    },
+    {
+      "type": "select",
+      "id": "margin_bottom",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-margin.options__6.label"
+        }
+      ],
+      "default": "no-indent",
+      "label": "t:sections.all.section-margin.margin_bottom.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section-padding.header.content"
+    },
+    {
+      "type": "select",
+      "id": "padding_top",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-padding.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-padding.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-padding.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-padding.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-padding.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-padding.options__6.label"
+        }
+      ],
+      "default": "m",
+      "label": "t:sections.all.section-padding.padding_top.label"
+    },
+    {
+      "type": "select",
+      "id": "padding_bottom",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-padding.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-padding.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-padding.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-padding.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-padding.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-padding.options__6.label"
+        }
+      ],
+      "default": "m",
+      "label": "t:sections.all.section-padding.padding_bottom.label"
+    },
+        {
+          "type": "text",
+          "id": "text1",
+          "default": "Engineered for Total Privacy",
+          "label": "text1"
+        }, 
+        {
+          "type": "text",
+          "id": "text2",
+          "default": "No cloud. No subscription. Full data control.",
+          "label": "text2"
+        }, 
+        {
+          "type": "text",
+          "id": "text3",
+          "default": "https://cdn.shopify.com/s/files/1/0555/8432/5709/files/X1_PRO_PC.png",
+          "label": "text3"
+        }, 
+        {
+          "type": "text",
+          "id": "text4",
+          "default": "https://cdn.shopify.com/s/files/1/0555/8432/5709/files/X1_PRO_MOB.png",
+          "label": "text4"
+        }, 
+        {
+          "type": "text",
+          "id": "text5",
+          "default": "Sign up now for updates on new products and a chance at beta testing!",
+          "label": "text5"
+        }, 
+        {
+          "type": "text",
+          "id": "text6",
+          "default": "Unlock the Launch Special when we go live on Kickstarter!",
+          "label": "text6"
+        }, 
+        {
+          "type": "text",
+          "id": "text7",
+          "default": "By signing up, you agree to receive our newsletters.",
+          "label": "text7"
+        }   
+  ],
+  "blocks": [
+    {
+      "type": "subheading",
+      "name": "t:sections.rich-text.blocks.subheading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "subheading",
+          "default": "Subheading",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading.label"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "t:sections.rich-text.blocks.heading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Heading for your section",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading.label"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            {
+              "value": "medium",
+              "label": "t:sections.rich-text.blocks.heading.settings.heading_size.options__1.label"
+            },
+            {
+              "value": "large",
+              "label": "t:sections.rich-text.blocks.heading.settings.heading_size.options__2.label"
+            }
+          ],
+          "default": "medium",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading_size.label"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.rich-text.blocks.text.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Description for your section.</p>",
+          "label": "t:sections.rich-text.blocks.text.settings.text.label"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "t:sections.rich-text.blocks.button.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button label",
+          "label": "t:sections.all.button.button_label.label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.all.button.button_link.label"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "options": [
+            {
+              "value": "primary",
+              "label": "t:sections.all.button.button_style.options__1.label"
+            },
+            {
+              "value": "secondary",
+              "label": "t:sections.all.button.button_style.options__2.label"
+            },
+            {
+              "value": "tertiary",
+              "label": "t:sections.all.button.button_style.options__3.label"
+            }
+          ],
+          "default": "primary",
+          "label": "t:sections.all.button.button_style.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "x1-chip",
+      "blocks": [
+        {
+          "type": "subheading"
+        },
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

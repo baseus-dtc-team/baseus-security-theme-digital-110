@@ -1,0 +1,672 @@
+{{ 'section-rich-text.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  {% render 'section-padding' %}
+  {% render 'section-margin' %}
+{%- endstyle -%}
+  <style>
+    .breadcrumb {
+      display: none;
+    }
+    .deposit-contain {
+      background: linear-gradient(to right, #010100, #2b2e32 50%, #010100);
+      color: #ffffff;
+      padding: 30px 0;
+    }
+    .deposit-contain h2 {
+      font-size: 28px;
+      color: #ffffff;
+    }
+    .deposit-contain p {
+      font-size: 18px;
+      color: #ffffff;
+    }
+    .deposit-box1 {
+      padding: 50px 30px;
+    }
+    .deposit-title-box1 {
+      margin-left: 5%;
+      text-align: left;
+    }
+    .deposit-box1-imgs {
+      display: flex;
+      gap: 3%;
+      justify-content: center;
+    }
+    .deposit-box1-imgs a {
+      width: 25%;
+      max-width: 330px;
+    }
+    .deposit-box1-imgs img {
+      width: 100%;
+    }
+    .deposit-box2 {
+      padding: 30px;
+      display: flex;
+      align-items: center;
+      /* justify-content: center; */
+    }
+    .deposit-title-box2 {
+      width: 60%;
+      margin-left: 5%;
+      text-align: left;
+    }
+    .deposit-box2-img {
+      width: 40%;
+      max-width: 280px;
+    }
+    .deposit-box1-imgsbox {
+      width: 25%;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      align-items: center;
+    }
+    .deposit-box1-imgsbox a {
+      background: #558dd5;
+      width: 80%;
+      display: block;
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+      text-decoration: none;
+      color: #ffffff;
+      font-size: 26px;
+    }
+    .deposit-head-title {
+      padding: 30px 0;
+      margin-top: 40px;
+      font-size: 36px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .deposit-head-des {
+      text-align: center;
+      font-size: 18px;
+    }
+    .deposit-head-des a {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+    @media screen and (max-width: 750px) {
+      .deposit-contain h2 {
+        font-size: 20px;
+      }
+      .deposit-contain p {
+        font-size: 14px;
+      }
+      .deposit-box1 {
+        padding: 20px;
+      }
+      .deposit-box1-imgs {
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .deposit-box1-imgs a {
+        width: 45%;
+      }
+      .deposit-box2 {
+        padding: 20px;
+        flex-direction: column;
+      }
+      .deposit-title-box1 {
+        margin-left: unset;
+      }
+      .deposit-title-box2 {
+        width: 100%;
+        margin-left: unset;
+      }
+      .deposit-box2-img {
+        width: 90%;
+      }
+      .deposit-box1-imgsbox {
+        width: 48%;
+
+        gap: 15px;
+      }
+      .deposit-box1-imgsbox a {
+        width: 80%;
+        padding: 6px;
+        font-size: 18px;
+      }
+      .deposit-head-title {
+        padding: 20px 0;
+        margin-top: 30px;
+        font-size: 26px;
+      }
+      .deposit-head-des {
+        font-size: 14px;
+      }
+    }
+  </style>
+<div class="rich-text {% if section.settings.full_width %}rich-text--full-width {% else %}container{% endif %} rich-text--align-{{ section.settings.alignment }} shopify-n1-seewide">
+  <div class="rich-text__blocks {% if section.settings.full_width %}container{% endif %} color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding n1-seewide-container">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'subheading' -%}
+          <div
+            class="rich-text__subheading subtitle"
+            {{ block.shopify_attributes }}
+          >
+            {{ block.settings.subheading | escape }}
+          </div>
+        {%- when 'heading' -%}
+          <h2
+            class="rich-text__heading title--section {% if block.settings.heading_size == 'medium' %}h2{% else %}h1{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            {{ block.settings.heading }}
+          </h2>
+        {%- when 'text' -%}
+          <div class="compare__description description body-large  description--center" {{ block.shopify_attributes }} style="margin: auto;">
+            {{ block.settings.text }}
+          </div>
+        {%- when 'button' -%}
+          <a
+            {% if block.settings.button_link == blank %}
+              aria-disabled="true"
+            {% else %}
+              href="{{ block.settings.button_link }}"
+            {% endif %}
+            class="button button--{{ block.settings.button_style }} focus-inset"
+            {{ block.shopify_attributes }}
+          >
+            {{ block.settings.button_label | escape }}
+          </a>
+      {%- endcase -%}
+    {%- endfor -%}
+    <div class="deposit-contain">
+      <div class="deposit-head-title">
+        How to Place Your Secret Reward Pledge (SOP)
+      </div>
+      <div class="deposit-head-des">
+        Follow the simple steps below to secure your exclusive Secret Reward for
+        the Baseus Security X1 Pro Dual Camera.
+      </div>
+      <div class="deposit-box1">
+        <div class="deposit-title-box1">
+          <h2>1.Choose your preferred bundle</h2>
+          <p>
+            Click the link under the image to access the Secret Reward page.
+          </p>
+        </div>
+        <div class="deposit-box1-imgs">
+          <a
+            href="https://www.kickstarter.com/projects/593941944/baseus-x1-pro-first-smart-ai-dual-tracking-security-camera?secret_reward_token=b55e3385"
+            ><img
+              src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/X1_PRO_deposit_1.jpg?v=1761119388"
+              alt=""
+          /></a>
+          <a
+            href="https://www.kickstarter.com/projects/593941944/baseus-x1-pro-first-smart-ai-dual-tracking-security-camera?secret_reward_token=8ecb13ff"
+            ><img
+              src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/X1_PRO_deposit_2.jpg?v=1761119388"
+              alt=""
+          /></a>
+          <a
+            href="https://www.kickstarter.com/projects/593941944/baseus-x1-pro-first-smart-ai-dual-tracking-security-camera?secret_reward_token=30d33287"
+            ><img
+              src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/X1_PRO_deposit_3.jpg?v=1761119388"
+              alt=""
+          /></a>
+          <a
+            href="https://www.kickstarter.com/projects/593941944/baseus-x1-pro-first-smart-ai-dual-tracking-security-camera?secret_reward_token=291722d8"
+            ><img
+              src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/X1_PRO_deposit_4.jpg?v=1761119388"
+              alt=""
+          /></a>
+        </div>
+      </div>
+      <div class="deposit-box2">
+        <div class="deposit-title-box2">
+          <h2>2.Sign in to your Kickstarter account</h2>
+          <p>
+            If you don’t have one, register first, then re-click the link above.
+          </p>
+        </div>
+        <img
+          class="deposit-box2-img"
+          src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/X1_PRO_deposit_5.jpg?v=1761119387"
+          alt=""
+        />
+      </div>
+      <div class="deposit-box2">
+        <div class="deposit-title-box2">
+          <h2>3.Go to the X1 Pro Campaign page</h2>
+          <p>Scroll down to the Rewards section.</p>
+        </div>
+        <img
+          class="deposit-box2-img"
+          src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/X1_PRO_deposit_6.jpg?v=1761119387"
+          alt=""
+        />
+      </div>
+      <div class="deposit-box2">
+        <div class="deposit-title-box2">
+          <h2>4.Click “Reward” and keep scrolling</h2>
+          <p>Locate the Secret Reward tier you want.</p>
+        </div>
+        <img
+          class="deposit-box2-img"
+          src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/X1_PRO_deposit_7.jpg?v=1761119387"
+          alt=""
+        />
+      </div>
+      <div class="deposit-box1">
+        <div class="deposit-title-box1">
+          <h2>5.Find the reward labeled “Secret Reward</h2>
+          <p>
+            Refer to the images below to select 1-Cam,2-Cam, 3-Camor 4-Cam
+            bundles.<br /><br />
+            Note: You need to click each Secret Reward link to view allfour
+            bundle options
+          </p>
+        </div>
+        <div class="deposit-box1-imgs">
+          <div class="deposit-box1-imgsbox">
+            <img
+              src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/X1_PRO_deposit_8.jpg?v=1761119388"
+              alt=""
+            />
+            <a
+              href="https://www.kickstarter.com/projects/593941944/baseus-x1-pro-first-smart-ai-dual-tracking-security-camera?secret_reward_token=b55e3385"
+              >Get Now</a
+            >
+          </div>
+          <div class="deposit-box1-imgsbox">
+            <img
+              src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/X1_PRO_deposit_9.jpg?v=1761119388"
+              alt=""
+            />
+            <a
+              href="https://www.kickstarter.com/projects/593941944/baseus-x1-pro-first-smart-ai-dual-tracking-security-camera?secret_reward_token=8ecb13ff"
+              >Get Now</a
+            >
+          </div>
+          <div class="deposit-box1-imgsbox">
+            <img
+              src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/X1_PRO_deposit_10.jpg?v=1761119388"
+              alt=""
+            />
+            <a
+              href="https://www.kickstarter.com/projects/593941944/baseus-x1-pro-first-smart-ai-dual-tracking-security-camera?secret_reward_token=30d33287"
+              >Get Now</a
+            >
+          </div>
+          <div class="deposit-box1-imgsbox">
+            <img
+              src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/X1_PRO_deposit_11.jpg?v=1761119388"
+              alt=""
+            />
+            <a
+              href="https://www.kickstarter.com/projects/593941944/baseus-x1-pro-first-smart-ai-dual-tracking-security-camera?secret_reward_token=291722d8"
+              >Get Now</a
+            >
+          </div>
+          <!-- <a
+            href="https://www.kickstarter.com/projects/593941944/baseus-x1-pro-first-smart-ai-dual-tracking-security-camera?secret_reward_token=30d33287"
+            ><img
+              src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/X1_PRO_deposit_3.jpg?v=1761119388"
+              alt=""
+          /></a>
+          <a
+            href="https://www.kickstarter.com/projects/593941944/baseus-x1-pro-first-smart-ai-dual-tracking-security-camera?secret_reward_token=291722d8"
+            ><img
+              src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/X1_PRO_deposit_4.jpg?v=1761119388"
+              alt=""
+          /></a> -->
+        </div>
+      </div>
+      <div class="deposit-head-title">
+        Already Pledged? How to Adjust Your Bundle
+      </div>
+      <div class="deposit-head-des">
+        If you have already purchased the Super Early Bird reward, you can
+        choose to switch your bundle in the Kickstarter dashboard after clicking
+        the link.
+        <div class="deposit-box1">
+          <div class="deposit-box1-imgs">
+            <a
+              href="https://www.kickstarter.com/projects/593941944/baseus-x1-pro-first-smart-ai-dual-tracking-security-camera?secret_reward_token=b55e3385"
+              ><img
+                src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/X1_PRO_deposit_1.jpg?v=1761119388"
+                alt=""
+            /></a>
+            <a
+              href="https://www.kickstarter.com/projects/593941944/baseus-x1-pro-first-smart-ai-dual-tracking-security-camera?secret_reward_token=8ecb13ff"
+              ><img
+                src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/X1_PRO_deposit_2.jpg?v=1761119388"
+                alt=""
+            /></a>
+            <a
+              href="https://www.kickstarter.com/projects/593941944/baseus-x1-pro-first-smart-ai-dual-tracking-security-camera?secret_reward_token=30d33287"
+              ><img
+                src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/X1_PRO_deposit_3.jpg?v=1761119388"
+                alt=""
+            /></a>
+            <a
+              href="https://www.kickstarter.com/projects/593941944/baseus-x1-pro-first-smart-ai-dual-tracking-security-camera?secret_reward_token=291722d8"
+              ><img
+                src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/X1_PRO_deposit_4.jpg?v=1761119388"
+                alt=""
+            /></a>
+          </div>
+        </div>
+        If you prefer not to change it, we can also adjust your pledge after the
+        campaign ends — just make sure your Deposit email matches your
+        Kickstarter email.
+        If the emails do not match, please contact us at 
+        <a href="mailto:support@baseussecurity.com"
+          >support@baseussecurity.com</a
+        >
+         or send us a message via Kickstarter so we can register and adjust
+        your pledge correctly.
+      </div>
+      <div class="deposit-head-title"></div>
+      <div class="deposit-head-des">
+        Our support team is always here to assist.
+        Email:
+        <a href="mailto:support@baseussecurity.com"
+          >support@baseussecurity.com</a
+        >
+      </div>
+    </div>
+    </div>  
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "x1-pro-deposit-sop",
+  "tag": "section",
+  "class": "spaced-section",
+  "enabled_on": {
+    "templates": ["*"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "background-1",
+      "label": "t:sections.all.color_scheme.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": true,
+      "label": "t:sections.rich-text.settings.full_width.label"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.rich-text.settings.alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.rich-text.settings.alignment.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.rich-text.settings.alignment.options__3.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.rich-text.settings.alignment.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section-margin.header.content"
+    },
+    {
+      "type": "select",
+      "id": "margin_top",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-margin.options__6.label"
+        }
+      ],
+      "default": "no-indent",
+      "label": "t:sections.all.section-margin.margin_top.label"
+    },
+    {
+      "type": "select",
+      "id": "margin_bottom",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-margin.options__6.label"
+        }
+      ],
+      "default": "no-indent",
+      "label": "t:sections.all.section-margin.margin_bottom.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section-padding.header.content"
+    },
+    {
+      "type": "select",
+      "id": "padding_top",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-padding.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-padding.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-padding.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-padding.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-padding.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-padding.options__6.label"
+        }
+      ],
+      "default": "m",
+      "label": "t:sections.all.section-padding.padding_top.label"
+    },
+    {
+      "type": "select",
+      "id": "padding_bottom",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-padding.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-padding.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-padding.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-padding.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-padding.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-padding.options__6.label"
+        }
+      ],
+      "default": "m",
+      "label": "t:sections.all.section-padding.padding_bottom.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "subheading",
+      "name": "t:sections.rich-text.blocks.subheading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "subheading",
+          "default": "Subheading",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading.label"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "t:sections.rich-text.blocks.heading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Heading for your section",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading.label"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            {
+              "value": "medium",
+              "label": "t:sections.rich-text.blocks.heading.settings.heading_size.options__1.label"
+            },
+            {
+              "value": "large",
+              "label": "t:sections.rich-text.blocks.heading.settings.heading_size.options__2.label"
+            }
+          ],
+          "default": "medium",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading_size.label"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.rich-text.blocks.text.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Description for your section.</p>",
+          "label": "t:sections.rich-text.blocks.text.settings.text.label"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "t:sections.rich-text.blocks.button.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button label",
+          "label": "t:sections.all.button.button_label.label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.all.button.button_link.label"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "options": [
+            {
+              "value": "primary",
+              "label": "t:sections.all.button.button_style.options__1.label"
+            },
+            {
+              "value": "secondary",
+              "label": "t:sections.all.button.button_style.options__2.label"
+            },
+            {
+              "value": "tertiary",
+              "label": "t:sections.all.button.button_style.options__3.label"
+            }
+          ],
+          "default": "primary",
+          "label": "t:sections.all.button.button_style.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "x1-pro-deposit-sop",
+      "blocks": [
+        {
+          "type": "subheading"
+        },
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

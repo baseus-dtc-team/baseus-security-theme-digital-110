@@ -1,0 +1,149 @@
+<style>
+    .count_down {
+      display: flex;
+      text-align: center;
+      font-size: 30px;
+      justify-content: center;
+      color: #FFE5CF;
+      padding: 50px 0;
+      {% comment %} margin-bottom: 25px; {% endcomment %}
+      background: #191e2a;
+    }
+    .timeboxs {
+      margin: 0 10px;
+      font-size: 20px;
+      line-height: 30px;
+    }
+    .timerpoint {
+      font-size: 34px;
+    }
+    .timerbg {
+      background: linear-gradient( #CFAF7A, #FBEEB9);
+      color: #191E2A;
+      border-radius: 6px;
+      font-size: 32px;
+      padding: 0 5px;
+      height: 60px;
+      line-height: 60px;
+      width: 60px;
+      font-weight: bold;
+
+    }
+    @media screen and (max-width: 750px) {
+      .count_down {
+        justify-content: center;
+        padding: 30px 0;       
+        {% comment %} margin-bottom: 15px; {% endcomment %}
+      }
+      .timeboxs {
+        margin: 0 6px;
+        font-size: 16px;
+        line-height: 20px;
+      }
+      .timerbg {
+        font-size: 26px;
+        height: 48px;
+        line-height: 48px;
+        width: 45px;
+      }
+      .timerpoint {
+        font-size: 28px;
+      }
+    }
+</style>
+
+<section>
+    <div>
+      <div class="count_down" id="timeOver">
+        <div class="timeboxs" style="margin-left: 0">
+          <div id="timerDays" class="timerbg"></div>
+          <div>Days</div>
+        </div>
+        <div class="timerpoint">:</div>
+        <div class="timeboxs">
+          <div id="timerHrs" class="timerbg"></div>
+          <div>Hrs</div>
+        </div>
+        <div class="timerpoint">:</div>
+        <div class="timeboxs">
+          <div id="timerMins" class="timerbg"></div>
+          <div>Mins</div>
+        </div>
+        <div class="timerpoint">:</div>
+        <div class="timeboxs">
+          <div id="timerSecs" class="timerbg"></div>
+          <div>Secs</div>
+        </div>
+      </div>
+    </div>
+</section>
+  <script>
+    function TimeDown(endDateStr) {
+      //结束时间
+      var endDate = new Date(endDateStr);
+      //当前时间
+      var nowDate = new Date();
+      //相差的总秒数
+      var totalSeconds = parseInt((endDate - nowDate) / 1000);
+      //天数
+      var days = Math.floor(totalSeconds / (60 * 60 * 24));
+      //取模（余数）
+      var modulo = totalSeconds % (60 * 60 * 24);
+      //小时数
+      var hours = Math.floor(modulo / (60 * 60));
+      modulo = modulo % (60 * 60);
+      //分钟
+      var minutes = Math.floor(modulo / 60);
+      //秒
+      var seconds = modulo % 60;
+      //输出天
+      document.getElementById("timerDays").innerHTML =
+        JSON.stringify(days).length > 1 ? days : "0" + days;
+      //输出时
+      document.getElementById("timerHrs").innerHTML =
+        JSON.stringify(hours).length > 1 ? hours : "0" + hours;
+      //输出分
+      document.getElementById("timerMins").innerHTML =
+        JSON.stringify(minutes).length > 1 ? minutes : "0" + minutes;
+      //输出秒
+      document.getElementById("timerSecs").innerHTML =
+        JSON.stringify(seconds).length > 1 ? seconds : "0" + seconds;
+      if (totalSeconds < 0) {
+        document.getElementById("timeOver").style.display = "none";
+      }
+      //延迟一秒执行自己
+      setTimeout(function () {
+        TimeDown("{{ section.settings.timenodes }}");
+      }, 1000);
+    }
+    TimeDown("{{ section.settings.timenodes }}");
+  </script>
+{% schema %}
+{
+  "name": "black25-countdown",
+  "class": "shopify-section--black25-countdown",
+  "blocks": [
+  ],
+  "settings": [
+    {
+      "type": "color",
+      "id": "bgColor",
+      "label": "Background",
+      "default": "#fff"
+    },
+        {
+          "type": "text",
+          "id": "timenodes",
+          "label": "Time Nodes",
+          "default": "2025-12-02 16:00:00"
+        },    
+  ],
+  "presets": [
+    {
+      "name": "black25-countdown",
+      "blocks": [
+      ]
+    }
+  ]
+}
+{% endschema %}

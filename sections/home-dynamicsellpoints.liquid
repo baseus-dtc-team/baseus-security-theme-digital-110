@@ -1,0 +1,433 @@
+{{ 'section-rich-text.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  {% render 'section-padding' %}
+  {% render 'section-margin' %}
+{%- endstyle -%}
+  <style>
+      .tab-container {
+        width: 600px;
+        max-width: 90%;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        padding: 24px;
+      }
+
+      /* Tab 按钮容器 */
+      .tab-buttons {
+    display: flex;
+    gap: 3px;
+    justify-content: center;
+    width: fit-content;
+    padding: 3px;
+    border-radius: 90px;
+    background: #f6f6f6;
+    margin: auto;
+      }
+
+      /* Tab 按钮样式 */
+      .tab-button {
+        padding: 8px 24px;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        background: transparent;
+        color: #000000;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border-radius: 6px;
+        position: relative;
+        border-radius: 90px;
+      }
+
+      /* 按钮悬停效果 */
+      .tab-button:hover {
+        background: #fff101;
+        color: #000000;
+      }
+
+      /* 高亮按钮样式 */
+      .tab-button.actives {
+        color: #000000;
+        background: #fff101;
+      }
+
+
+      /* 内容区域容器 */
+      .tab-content {
+        min-height: 200px;
+        padding: 16px 0;
+      }
+
+      /* 单个内容面板 */
+      .content-panel {
+        display: none;
+        animation: fadeIn 0.3s ease;
+      }
+
+      /* 显示的内容面板 */
+      .content-panel.actives {
+        display: block;
+      }
+
+      /* 淡入动画 */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* 卡片样式（用于演示内容） */
+      .demo-card {
+        background: #f9f9f9;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 10px 0;
+      }
+
+
+
+      .vr2-switch-container {
+        display: flex;
+        height: 25vw;
+        gap: 20px;
+        width: 100%;
+        {% comment %} max-height: 500px; {% endcomment %}
+      }
+
+      .vr2-module {
+        flex: 1;
+        background: transparent;
+        border-radius: 10px;
+        {% comment %} box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); {% endcomment %}
+        transition: all 0.5s ease;
+        overflow: hidden;
+        position: relative;
+        cursor: pointer;
+      }
+      {% comment %} .vr2-module::before {
+        content: " ";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 4;
+        left: 0;
+      } {% endcomment %}
+      .module-content {
+        padding: 50px 20px 20px 30px;
+        height: 100%;
+        box-sizing: border-box;
+        position: absolute;
+        width: 100%;
+        z-index: 4;
+        opacity: 0;
+        color: #000000;
+      }
+      .model-bgimg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: calc(100% - 40px);
+    max-width: none;
+    border-radius: 10px;
+      }
+      .vr2-module h2 {
+        margin-top: 0;
+        {% comment %} color: #ffffff; {% endcomment %}
+      }
+
+      {% comment %} .vr2-module p {
+        color: #ffffff;
+      } {% endcomment %}
+
+      .vr2-module.active {
+        flex: 1.2;
+      }
+      .vr2-module.active img {
+        width: auto;
+        height: calc(100% - 40px);    
+      }
+      .vr2-module.active .model-bgimg {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    margin: auto;
+    height: calc(100% - 40px);        
+      }      
+      .vr2-module:hover::before {
+        z-index: -1;
+      }
+      .module-content:hover {
+        opacity: 1;
+      }
+      .vr2-module.inactive {
+        flex: 0.5;
+      }
+      .vr2-switch-mocontainer {
+        display: none;
+      }
+      .mo-model-bgimg {
+        width: 300px;
+        max-width: none;      
+      }
+      .mo-model-box {
+        position: relative;
+        width: 300px;
+      }
+      .mo-module-content {
+        padding: 20px;
+        height: 400px;
+        box-sizing: border-box;
+        position: absolute;
+        width: 300px;
+        z-index: 4;
+        color: #ffffff;
+      }
+      .mo-module-content p {
+        margin: 0;
+      }
+      .mo-show {
+        display: none;
+      }
+      .model-img-name {
+        position: absolute;
+        bottom: 10px;
+        color: #000000;
+        width: 100%;
+        font-size: 16px;
+      }
+      {% comment %} @media screen and (max-width: 1500px)  {
+      .vr2-switch-container {
+        max-height: 400px;
+      }      
+      } {% endcomment %}
+      @media screen and (max-width: 750px) {
+        .vr2-switch-container {
+          display: none;
+        }
+        .vr2-switch-mocontainer {
+          display: flex;
+          gap: 20px;
+          overflow: auto;
+        }
+        .tab-button {
+          font-size: 14px;
+        }      
+      }
+  </style>
+<div class="rich-text {% if section.settings.full_width %}rich-text--full-width {% else %}container{% endif %} rich-text--align-{{ section.settings.alignment }} shopify-n1-seewide">
+  <div class="rich-text__blocks {% if section.settings.full_width %}container{% endif %} color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding n1-seewide-container">
+      <!-- Tab 按钮 -->
+      <div class="tab-buttons">
+        <button class="tab-button actives" data-tab="tab1">{{ section.settings.tab_1 }}</button>
+        <button class="tab-button" data-tab="tab2">{{ section.settings.tab_2 }}</button>
+      </div>
+    <div class="vr2-switch-container">
+      {%- for block in section.blocks -%} 
+      {%- if block.settings.image_1 != blank -%}             
+      <div
+        id="tab{{ block.settings.id }}"
+        class="{%- if block.settings.id == '1' -%}content-panel vr2-module actives {% else %} content-panel vr2-module {%- endif -%}"
+        onmouseenter="expandModule(this)"
+        onmouseleave="resetModules()"
+      >
+        <div class="module-content">
+          {%- if block.settings.title != blank -%}
+          <h2>{{ block.settings.title }}</h2>
+          {%- endif -%} 
+          {%- if block.settings.text != blank -%}                   
+          <div>{{ block.settings.text }}</div>
+          {%- endif -%}           
+        </div>
+        <img
+          class="model-bgimg"
+          src="{{ block.settings.image_1 | image_url }}"
+          alt=""
+        />
+        <div class="model-img-name">{{ block.settings.name }}</div>
+      </div> 
+      {%- endif -%}       
+      {% endfor %}          
+    </div>
+    <div class="vr2-switch-mocontainer">
+      {%- for block in section.blocks -%} 
+      {%- if block.settings.image_1 != blank -%}                 
+      <div class="{%- if block.settings.id == '1' -%}content-panel mo-model-box actives {% else %} content-panel mo-model-box {%- endif -%}" id="tab{{ block.settings.id }}">
+        <div class="mo-module-content">
+      {%- if block.settings.title != blank -%}           
+          <h2>{{ block.settings.title }}</h2>
+      {%- endif -%}
+      {%- if block.settings.text != blank -%}                 
+          <div>{{ block.settings.text }}</div>
+      {%- endif -%}          
+        </div>
+        <img
+          class="mo-model-bgimg"
+          src="{{ block.settings.image_2 | image_url }}"
+          alt=""
+        />
+      </div>
+      {%- endif -%}       
+      {% endfor %}                
+    </div>
+  </div>
+</div>
+         <script>
+      document.addEventListener("DOMContentLoaded", function () {          
+        // 获取所有tab按钮和内容面板
+        const tabButtons = document.querySelectorAll(".tab-button");
+        const contentPanels = document.querySelectorAll(".content-panel");
+
+        // 为每个按钮添加点击事件
+        tabButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            // 获取当前点击按钮的data-tab属性值
+            const tabId = this.getAttribute("data-tab");
+
+            // 移除所有按钮的active类
+            tabButtons.forEach((btn) => {
+              btn.classList.remove("actives");
+            });
+
+            // 移除所有内容面板的active类
+            contentPanels.forEach((panel) => {
+              panel.classList.remove("actives");
+            });
+
+            // 给当前点击的按钮添加active类
+            this.classList.add("actives");
+            // 给对应的内容面板添加active类
+            const alltabid = document.querySelectorAll('#' + tabId.toString());
+alltabid.forEach((value) => {
+    value.classList.add("actives");
+});                       
+            {% comment %} document.getElementById(tabId).classList.add("actives"); {% endcomment %}
+          });
+        });      
+        }); 
+      function expandModule(module) {
+        // Get all modules
+        const modules = document.querySelectorAll(".vr2-module");
+
+        // Add active class to hovered module
+        module.classList.add("active");
+
+        // Add inactive class to other modules
+        modules.forEach((m) => {
+          if (m !== module) {
+            m.classList.add("inactive");
+          }
+        });
+      }
+
+      function resetModules() {
+        // Remove all active/inactive classes
+        const modules = document.querySelectorAll(".vr2-module");
+        modules.forEach((m) => {
+          m.classList.remove("active");
+          m.classList.remove("inactive");
+        });
+      }
+    </script>
+{% schema %}
+{
+  "name": "home-dynamicsellpoints",
+  "tag": "section",
+  "class": "spaced-section",
+  "enabled_on": {
+    "templates": ["*"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "background-1",
+      "label": "t:sections.all.color_scheme.label"
+    },
+        {
+          "type": "text",
+          "id": "tab_1",
+          "default": "tab_1",
+          "label": "tab 1"
+        },  
+        {
+          "type": "text",
+          "id": "tab_2",
+          "default": "tab_2",
+          "label": "tab 2"
+        },              
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "item",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "PC Image"
+        },       
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "MO Image"
+        }, 
+        {
+          "type": "text",
+          "id": "name",
+          "default": "name",
+          "label": "scene name"
+        },                  
+        {
+          "type": "text",
+          "id": "title",
+          "default": "title",
+          "label": "title"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Description for your section.</p>",
+          "label": "richtext"
+        },
+        {
+          "type": "text",
+          "id": "id",
+          "default": "1",
+          "label": "tab id"
+        },                
+      ]
+    },
+  ],
+  "presets": [
+    {
+      "name": "home-dynamicsellpoints",
+      "blocks": [
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

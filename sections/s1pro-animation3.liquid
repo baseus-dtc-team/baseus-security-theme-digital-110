@@ -1,0 +1,543 @@
+{{ 'section-rich-text.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  {% render 'section-padding' %}
+  {% render 'section-margin' %}
+{%- endstyle -%}
+  <style>
+.animationbox3 {
+  height: 4680px;
+  position: relative;
+  background-color: #ffffff;
+  z-index: 3;
+}
+.animationfixed3 {
+  position: absolute;
+  top: 0;
+  bottom: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  /* height: 100vh;
+  width: 100%; */
+  height: 100%;
+  width: 100vw;
+  z-index: 3;
+}
+  .canvasbg3 {
+  display:block;
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+}
+     .canvasbg32{
+       display: none;
+       width: 100%;
+       max-height: 100%;
+     }
+.pro-title3 {
+  position: fixed;
+  z-index: 10;
+  top: 20vh;
+  color: #000000;
+  opacity: 0;
+  width: 100vw;
+  text-align: center;
+  display:none;
+}
+.animation_title3 {
+  font-size: 2.3vw;
+  font-weight:blod;
+}
+.animation_content3 {
+  font-size: 1.3vw;
+  /* color: #808080; */
+}
+.animation_bottomgap3 {
+  height: 5px;
+  background-color: #ffffff;
+  position: relative;
+  z-index: 3;
+}
+    @media screen and (max-width: 750px) {
+      .animationfixed3{
+        align-items: center;
+      }
+     .canvasbg3 {
+       display: none;
+      }
+     .canvasbg32{
+       display: block;
+     }
+     .pro-title3 {
+        top: 100px;
+        width: 100vw;
+        padding: 0 20px;
+        text-align: center;
+        left: 0;
+      }
+  .animation_title3{
+    font-size: 24px;
+  }
+  .animation_content3{
+    font-size: 16px;
+  }
+  }
+  </style>
+  <div class="animation_bottomgap3"></div>
+  <div class="animationbox3" id="canvasbox3">
+    <div class="pro-title3" id="pro-title3">
+      <div class="animation_title3">Crisp 3K Dual Views</div>
+      <div class="animation_content3">Up to 8x digital zoom, see that beautiful smile on your face even from 65ft /20m away.</div>
+    </div>
+    <div class="animationfixed3" id="canvasfixed3">
+      <canvas
+        class="canvasbg3"
+        id="background3"
+        width="1920"
+        height="1080"></canvas>
+      <canvas
+          class="canvasbg32"
+          width="750"
+          height="1334"
+          id="background32"></canvas>
+    </div>
+  </div>
+  <div class="animation_bottomgap3"></div>
+   <script>
+  let screenWidth3 = window.screen.width
+      var images3 = new Array();
+      var totalImages3 = 259;
+      var abc3 = 1;
+      var funTip3 = 0;
+   if(screenWidth3>750){
+        for (var i = 1; i < totalImages3; i++) {
+        var img3 = new Image();
+        var slug3 = "000" + i;
+        img3.src =
+          "https://cdn.shopify.com/s/files/1/0555/8432/5709/files/clearview_0" + slug3.slice(-3) + ".webp";
+        images3.push(img3);
+      }
+  }else{
+        for (var i = 1; i < totalImages3; i++) {
+        var img3 = new Image();
+        var slug3 = "000" + i;
+        img3.src =
+          "https://cdn.shopify.com/s/files/1/0555/8432/5709/files/m_clearview_0" + slug3.slice(-3) + ".webp";
+        images3.push(img3);
+      }
+}
+
+          //加载第一张图片
+      setTimeout(() => {
+          ctx3.fillRect(0, 0, c3.width, c3.height);
+          ctx3.drawImage(images3[1], 0, 0, c3.width, c3.height);
+      }, 200);
+      // let head1 = document.querySelector('.announcement-bar').offsetHeight;
+      // let head2 = document.querySelector('.header').offsetHeight;
+      // let topslide = document.querySelector('.shopify-section--slideshow').offsetHeight;
+      // let topmulti = document.querySelector('.shopify-section--multi-column').offsetHeight;
+      var showtime3 = document.getElementById("canvasbox3");
+      var showfixed3 = document.getElementById("canvasfixed3");
+      // var c3 = document.getElementById("background3");
+      if(screenWidth3>750){var c3 = document.getElementById("background3");}else{var c3 = document.getElementById("background32");}
+      var ctx3 = c3.getContext("2d");
+      var protitle3 = document.getElementById("pro-title3");
+      function swiper3(e) {
+        funTip3 = 1;
+        var scrollTop3 =
+          (window.pageYOffset || document.documentElement.scrollTop) - head1 - head2 - topslide - topmulti - topreds - 2340 - tophelpcontact - 15 - 2340 - 10
+        if(screenWidth3>750){
+          if (parseInt(scrollTop3 / 14) < 1) {
+          abc3 = 1;
+        } else {
+          abc3 = parseInt(scrollTop3 / 14);
+        }
+        }
+        else{
+        if (parseInt(scrollTop3 / 14) < 1) {
+          abc3 = 1;
+        } else {
+          abc3 = parseInt(scrollTop3 / 14);
+        }
+        }
+        if (abc3 >= 0 && abc3 < 50) {
+          protitle3.style.opacity = 1;
+        } else if(abc3 >= 50 && abc3 <= 60){
+          protitle3.style.opacity = 1 - (abc3 - 50)/10;
+          protitle3.style.transform = 'translateY(-'+ (abc3 - 50) + 'vh)';
+        } else {
+          protitle3.style.opacity = 0;
+        }
+        if (abc3 <= 254) {
+          ctx3.fillRect(0, 0, c3.width, c3.height);
+          ctx3.drawImage(images3[abc3], 0, 0, c3.width, c3.height);
+        }
+        if (abc3 > 254) {
+          ctx3.fillRect(0, 0, c3.width, c3.height);
+          ctx3.drawImage(images3[255], 0, 0, c3.width, c3.height);
+        }
+         // console.log(images3[abc3])
+         if(screenWidth3>750){var screenHeigt3 = 1080 - 135}else{var screenHeigt3 = 712}
+        if (
+          document.documentElement.scrollTop >=
+          topslide + topmulti + topreds + 2340 + tophelpcontact - screenHeigt3 + 2340 + 15 + 2340 + 2340
+        ) {
+          showfixed3.style.position = "absolute";
+          showfixed3.style.bottom = "0";
+          showfixed3.style.top = "auto";
+          c3.style.position = "absolute";
+          c3.style.bottom = "0";
+        } else {
+          showfixed3.style.position = "fixed";
+          showfixed3.style.top = "0";
+          showfixed3.style.bottom = "auto";
+          c3.style.position = "unset";
+          c3.style.bottom = "0";
+        }
+      }
+   // var advanceShow3 = `-${c1.height - head1 - head2}px`
+      var observer3 = new IntersectionObserver(
+        (entries3) => {
+          entries3.forEach((i3) => {
+            // 通过滚动判断是否是当前的监听对象
+            if (i3.isIntersecting) {
+              showfixed3.style.position = "fixed";
+              protitle3.style.display = "block"
+              showfixed3.style.alignItems = "center";
+              console.log("show3");
+              window.onscroll = swiper3;
+              return;
+            } else {
+              showfixed3.style.position = "unset";
+              protitle3.style.display = "none"
+              showfixed3.style.alignItems = "flex-start";
+              protitle11.style.display = "none"
+              protitle12.style.display = "none"             
+              console.log("disappear3");
+              if (funTip3 > 0) {
+                window.onscroll = undefined;
+              }
+              return;
+            }
+          });
+        },
+        {
+         rootMargin: screenWidth > 1000 ? "0px 0px -1080px 0px" : "0px 0px -712px 0px", // 提前150px进入可视区域时就加载图片，提高用户体验
+           // rootMargin: "0px 0px " + advanceShow3 + " 0px"
+        }
+      );
+      // observer3.observe(showtime3);
+          function addEvent3(obj,type,fn){
+    if(obj.attachEvent){ //ie
+        obj.attachEvent('on'+type,function(){
+            fn.call(obj);
+        })
+    }else{
+        obj.addEventListener(type,fn,false);
+    }
+}
+addEvent3(window,'scroll',function(){
+          var scrollTopShow = (window.pageYOffset || document.documentElement.scrollTop)
+      if(scrollTopShow > topslide + topmulti + topreds + 2340 + tophelpcontact + 10 + 2340 + 10 ){
+         observer3.observe(showtime3);
+      }else{
+        observer3.unobserve(showtime3);
+         showfixed3.style.position = "unset";
+      }
+});
+    </script>
+{% schema %}
+{
+  "name": "s1pro-animation3",
+  "tag": "section",
+  "class": "spaced-section",
+  "enabled_on": {
+    "templates": ["*"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "background-1",
+      "label": "t:sections.all.color_scheme.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": true,
+      "label": "t:sections.rich-text.settings.full_width.label"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.rich-text.settings.alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.rich-text.settings.alignment.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.rich-text.settings.alignment.options__3.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.rich-text.settings.alignment.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section-margin.header.content"
+    },
+    {
+      "type": "select",
+      "id": "margin_top",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-margin.options__6.label"
+        }
+      ],
+      "default": "no-indent",
+      "label": "t:sections.all.section-margin.margin_top.label"
+    },
+    {
+      "type": "select",
+      "id": "margin_bottom",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-margin.options__6.label"
+        }
+      ],
+      "default": "no-indent",
+      "label": "t:sections.all.section-margin.margin_bottom.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section-padding.header.content"
+    },
+    {
+      "type": "select",
+      "id": "padding_top",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-padding.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-padding.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-padding.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-padding.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-padding.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-padding.options__6.label"
+        }
+      ],
+      "default": "m",
+      "label": "t:sections.all.section-padding.padding_top.label"
+    },
+    {
+      "type": "select",
+      "id": "padding_bottom",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-padding.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-padding.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-padding.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-padding.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-padding.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-padding.options__6.label"
+        }
+      ],
+      "default": "m",
+      "label": "t:sections.all.section-padding.padding_bottom.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "subheading",
+      "name": "t:sections.rich-text.blocks.subheading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "subheading",
+          "default": "Subheading",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading.label"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "t:sections.rich-text.blocks.heading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Heading for your section",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading.label"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            {
+              "value": "medium",
+              "label": "t:sections.rich-text.blocks.heading.settings.heading_size.options__1.label"
+            },
+            {
+              "value": "large",
+              "label": "t:sections.rich-text.blocks.heading.settings.heading_size.options__2.label"
+            }
+          ],
+          "default": "medium",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading_size.label"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.rich-text.blocks.text.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Description for your section.</p>",
+          "label": "t:sections.rich-text.blocks.text.settings.text.label"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "t:sections.rich-text.blocks.button.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button label",
+          "label": "t:sections.all.button.button_label.label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.all.button.button_link.label"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "options": [
+            {
+              "value": "primary",
+              "label": "t:sections.all.button.button_style.options__1.label"
+            },
+            {
+              "value": "secondary",
+              "label": "t:sections.all.button.button_style.options__2.label"
+            },
+            {
+              "value": "tertiary",
+              "label": "t:sections.all.button.button_style.options__3.label"
+            }
+          ],
+          "default": "primary",
+          "label": "t:sections.all.button.button_style.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "s1pro-animation3",
+      "blocks": [
+        {
+          "type": "subheading"
+        },
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

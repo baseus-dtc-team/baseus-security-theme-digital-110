@@ -1,0 +1,522 @@
+{{ 'section-rich-text.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  {% render 'section-padding' %}
+  {% render 'section-margin' %}
+{%- endstyle -%}
+  <style>
+    .s1pro-helpcontrast-content {
+    }
+    .s1pro-helpcontrast-topbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .s1pro-helpcontrast-bos {
+      width: 60%;
+      background: #f6f6f6;
+      padding: 20px 40px 80px 40px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+      margin-top: 100px;
+      font-size: 20px;    
+    }
+
+    .s1pro-helpcontrast-cameraimg {
+      width: 120px;
+      margin-top: -80px;
+    }
+    .s1pro-helpcontrast-title {
+      text-align: center;
+      font-weight: bold;
+      font-size: 22px;
+    }
+    .s1pro-helpcontrast-des {
+      background: #63a2ff;
+      color: #ffffff;
+      padding: 10px 30px;
+      border-radius: 90px;
+      width: 100%;
+      max-width: 600px;      
+    }
+    .des-2 {
+      background: #797979;
+      font-size: 18px;
+    }
+    .helpcontrast-bos2 {
+      width: 40%;
+      background: #d3d3d3;
+      padding: 20px 20px 40px 20px;
+      height: max-content;
+      gap: 10px;
+    }
+    .s1pro-helpcontrast-des2-box {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .s1pro-helpcontrast-des-box {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .s1pro-helpcontrast-tip {
+      text-align: center;
+      color: #4c4c4c;
+      font-size: 14px;
+      padding-bottom: 20px;
+    }
+    .pc-show {
+      display: block;
+    }
+    .mob-show {
+      display: none;
+    }
+    .s1pro-helpcontrast-numbox {
+      margin: 20px 0;
+    }
+    @media screen and (max-width: 750px) {
+      .pc-show {
+        display: none;
+      }
+      .mob-show {
+        display: block;
+      }
+      .s1pro-helpcontrast-bos {
+        padding: 0 0 40px 0;
+        width: 100%;
+        margin-top: 60px;
+        font-size: 16px;
+      }
+
+      .s1pro-helpcontrast-topbox {
+        flex-direction: column;
+      }
+      .s1pro-helpcontrast-des-box {
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        gap: 10px;
+      }
+      .s1pro-helpcontrast-des2-box {
+        align-items: center;
+        text-align: center;
+        width: 100%;
+      }
+      .s1pro-helpcontrast-cameraimg {
+        width: 100px;
+        margin-top: -50px;
+      }
+      .s1pro-helpcontrast-des {
+        width: calc(100% - 40px);
+        font-size: 14px;
+      }
+      .helpcontrast-bos2 {
+        gap: 20px;
+      }
+      .des-2 {
+        font-size: 14px;
+      }      
+    }
+  </style>
+<div class="rich-text {% if section.settings.full_width %}rich-text--full-width {% else %}container{% endif %} rich-text--align-{{ section.settings.alignment }} shopify-s1pro-helpcontrast">
+  <div class="rich-text__blocks {% if section.settings.full_width %}container{% endif %} color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'subheading' -%}
+          <div
+            class="rich-text__subheading subtitle"
+            {{ block.shopify_attributes }}
+          >
+            {{ block.settings.subheading | escape }}
+          </div>
+        {%- when 'heading' -%}
+          <h2
+            class="rich-text__heading title--section {% if block.settings.heading_size == 'medium' %}h2{% else %}h1{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            {{ block.settings.heading }}
+          </h2>
+        {%- when 'text' -%}
+          <div class="rich-text__text" {{ block.shopify_attributes }}>
+            {{ block.settings.text }}
+          </div>
+        {%- when 'button' -%}
+          <a
+            {% if block.settings.button_link == blank %}
+              aria-disabled="true"
+            {% else %}
+              href="{{ block.settings.button_link }}"
+            {% endif %}
+            class="button button--{{ block.settings.button_style }} focus-inset"
+            {{ block.shopify_attributes }}
+          >
+            {{ block.settings.button_label | escape }}
+          </a>
+      {%- endcase -%}
+    {%- endfor -%}
+    <div class="s1pro-helpcontrast-content">
+      <div class="s1pro-helpcontrast-topbox">
+        <div class="s1pro-helpcontrast-bos">
+          <img
+            class="s1pro-helpcontrast-cameraimg"
+            src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/Baseus_Security_S1_Pro_Outdoor_CameraS1-Pro.png?v=1744600122"
+            alt=""
+          />
+          <div class="s1pro-helpcontrast-title">
+            Auto-Sun-Tracking Solar Panel
+          </div>
+          <div class="s1pro-helpcontrast-des-box">
+            <div class="s1pro-helpcontrast-des">
+              Doubles charging capacity with its auto-sun-tracking feature,
+              storing up to 900mAh per day.
+            </div>
+            <div class="s1pro-helpcontrast-des">
+              Virtually eliminates the need for manual recharging.
+            </div>
+            <div class="s1pro-helpcontrast-des">
+              Actively adjusts to capture optimal sunlight using sensors and a
+              motor.
+            </div>
+          </div>
+        </div>
+        <div class="s1pro-helpcontrast-bos helpcontrast-bos2">
+          <img
+            class="s1pro-helpcontrast-cameraimg"
+            src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/Baseus_Security_S1_Pro_Outdoor_Camera_48f7c6cf-45a5-464c-a104-2df6d52b09f2.png?v=1744600122"
+            alt=""
+          />
+          <div class="s1pro-helpcontrast-title" style="color: #494949">
+            Fixed Solar Panel
+          </div>
+          <div class="s1pro-helpcontrast-des2-box">
+            <div class="s1pro-helpcontrast-des des-2">
+              Lower charging efficiency, storing only 450mAh per day.
+            </div>
+            <div class="s1pro-helpcontrast-des des-2">
+              Frequent manual recharging may be required.
+            </div>
+            <div class="s1pro-helpcontrast-des des-2">
+              Limited power generation due to a fixed angle design.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="s1pro-helpcontrast-numbox">
+        <img
+          class="pc-show"
+          width="100%"
+          src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/PC.jpg?v=1744679935"
+          alt=""
+        />
+        <img
+          class="mob-show"
+          width="100%"
+          src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/5.jpg?v=1744679935"
+          alt=""
+        />
+      </div>
+      <div class="s1pro-helpcontrast-tip">
+        *All data is provided by Baseus Labs under optimal sunlight conditions.
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "s1pro-helpcontrast",
+  "tag": "section",
+  "class": "spaced-section",
+  "enabled_on": {
+    "templates": ["*"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "background-1",
+      "label": "t:sections.all.color_scheme.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": true,
+      "label": "t:sections.rich-text.settings.full_width.label"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.rich-text.settings.alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.rich-text.settings.alignment.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.rich-text.settings.alignment.options__3.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.rich-text.settings.alignment.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section-margin.header.content"
+    },
+    {
+      "type": "select",
+      "id": "margin_top",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-margin.options__6.label"
+        }
+      ],
+      "default": "no-indent",
+      "label": "t:sections.all.section-margin.margin_top.label"
+    },
+    {
+      "type": "select",
+      "id": "margin_bottom",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-margin.options__6.label"
+        }
+      ],
+      "default": "no-indent",
+      "label": "t:sections.all.section-margin.margin_bottom.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section-padding.header.content"
+    },
+    {
+      "type": "select",
+      "id": "padding_top",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-padding.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-padding.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-padding.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-padding.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-padding.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-padding.options__6.label"
+        }
+      ],
+      "default": "m",
+      "label": "t:sections.all.section-padding.padding_top.label"
+    },
+    {
+      "type": "select",
+      "id": "padding_bottom",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-padding.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-padding.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-padding.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-padding.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-padding.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-padding.options__6.label"
+        }
+      ],
+      "default": "m",
+      "label": "t:sections.all.section-padding.padding_bottom.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "subheading",
+      "name": "t:sections.rich-text.blocks.subheading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "subheading",
+          "default": "Subheading",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading.label"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "t:sections.rich-text.blocks.heading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Heading for your section",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading.label"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            {
+              "value": "medium",
+              "label": "t:sections.rich-text.blocks.heading.settings.heading_size.options__1.label"
+            },
+            {
+              "value": "large",
+              "label": "t:sections.rich-text.blocks.heading.settings.heading_size.options__2.label"
+            }
+          ],
+          "default": "medium",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading_size.label"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.rich-text.blocks.text.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Description for your section.</p>",
+          "label": "t:sections.rich-text.blocks.text.settings.text.label"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "t:sections.rich-text.blocks.button.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button label",
+          "label": "t:sections.all.button.button_label.label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.all.button.button_link.label"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "options": [
+            {
+              "value": "primary",
+              "label": "t:sections.all.button.button_style.options__1.label"
+            },
+            {
+              "value": "secondary",
+              "label": "t:sections.all.button.button_style.options__2.label"
+            },
+            {
+              "value": "tertiary",
+              "label": "t:sections.all.button.button_style.options__3.label"
+            }
+          ],
+          "default": "primary",
+          "label": "t:sections.all.button.button_style.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "s1pro-helpcontrast",
+      "blocks": [
+        {
+          "type": "subheading"
+        },
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

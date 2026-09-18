@@ -1,0 +1,522 @@
+{% doc %}
+  @prompt
+    生成一个下拉式FAQ的section，我可以自己填写问题和回答，问题的标题我可以自己编辑字体和样式，回答内容是富文本的形式，内容可以插入超链接
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-faq-accordion-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: {{ block.settings.section_padding }}px 0;
+  }
+
+  .ai-faq-accordion__container-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.item_spacing }}px;
+  }
+
+  .ai-faq-accordion__item-{{ ai_gen_id }} {
+    border: 1px solid {{ block.settings.border_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    background-color: {{ block.settings.background_color }};
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .ai-faq-accordion__item-{{ ai_gen_id }}:hover {
+    border-color: {{ block.settings.border_hover_color }};
+  }
+
+  .ai-faq-accordion__header-{{ ai_gen_id }} {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: {{ block.settings.question_padding }}px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-faq-accordion__header-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.question_hover_bg }};
+  }
+
+  .ai-faq-accordion__question-{{ ai_gen_id }} {
+    flex: 1;
+    font-family: {{ block.settings.question_font.family }}, {{ block.settings.question_font.fallback_families }};
+    font-weight: {{ block.settings.question_font.weight }};
+    font-size: {{ block.settings.question_font_size }}px;
+    color: {{ block.settings.question_color }};
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .ai-faq-accordion__icon-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    margin-left: 16px;
+    transition: transform 0.3s ease;
+    color: {{ block.settings.icon_color }};
+  }
+
+  .ai-faq-accordion__icon-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .ai-faq-accordion__item-{{ ai_gen_id }}.active .ai-faq-accordion__icon-{{ ai_gen_id }} {
+    transform: rotate(180deg);
+  }
+
+  .ai-faq-accordion__content-{{ ai_gen_id }} {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+  }
+
+  .ai-faq-accordion__item-{{ ai_gen_id }}.active .ai-faq-accordion__content-{{ ai_gen_id }} {
+    max-height: 1000px;
+    padding: 0 {{ block.settings.question_padding }}px {{ block.settings.question_padding }}px;
+  }
+
+  .ai-faq-accordion__answer-{{ ai_gen_id }} {
+    color: {{ block.settings.answer_color }};
+    font-size: {{ block.settings.answer_font_size }}px;
+    line-height: 1.6;
+  }
+
+  .ai-faq-accordion__answer-{{ ai_gen_id }} p {
+    margin: 0 0 12px 0;
+  }
+
+  .ai-faq-accordion__answer-{{ ai_gen_id }} p:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-faq-accordion__answer-{{ ai_gen_id }} a {
+    color: {{ block.settings.link_color }};
+    text-decoration: underline;
+  }
+
+  .ai-faq-accordion__answer-{{ ai_gen_id }} a:hover {
+    color: {{ block.settings.link_hover_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-faq-accordion-{{ ai_gen_id }} {
+      width: 100%;
+    }
+
+    .ai-faq-accordion__question-{{ ai_gen_id }} {
+      font-size: {{ block.settings.question_font_size | times: 0.9 }}px;
+    }
+
+    .ai-faq-accordion__answer-{{ ai_gen_id }} {
+      font-size: {{ block.settings.answer_font_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<faq-accordion-{{ ai_gen_id }} class="ai-faq-accordion-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-faq-accordion__container-{{ ai_gen_id }}">
+    {% for i in (1..10) %}
+      {% liquid
+        assign question_key = 'question_' | append: i
+        assign answer_key = 'answer_' | append: i
+        assign question = block.settings[question_key]
+        assign answer = block.settings[answer_key]
+      %}
+
+      {% if question != blank and answer != blank %}
+        <div class="ai-faq-accordion__item-{{ ai_gen_id }}" data-faq-item>
+          <button
+            class="ai-faq-accordion__header-{{ ai_gen_id }}"
+            aria-expanded="false"
+            data-faq-button
+          >
+            <h3 class="ai-faq-accordion__question-{{ ai_gen_id }}">{{ question }}</h3>
+            <span class="ai-faq-accordion__icon-{{ ai_gen_id }}">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </button>
+          <div class="ai-faq-accordion__content-{{ ai_gen_id }}" data-faq-content>
+            <div class="ai-faq-accordion__answer-{{ ai_gen_id }}">
+              {{ answer }}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</faq-accordion-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class FaqAccordion{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.items = this.querySelectorAll('[data-faq-item]');
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.items.forEach((item) => {
+          const button = item.querySelector('[data-faq-button]');
+          
+          button.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            
+            if (isActive) {
+              this.closeItem(item);
+            } else {
+              this.items.forEach((otherItem) => {
+                if (otherItem !== item) {
+                  this.closeItem(otherItem);
+                }
+              });
+              this.openItem(item);
+            }
+          });
+        });
+      }
+
+      openItem(item) {
+        const button = item.querySelector('[data-faq-button]');
+        item.classList.add('active');
+        button.setAttribute('aria-expanded', 'true');
+      }
+
+      closeItem(item) {
+        const button = item.querySelector('[data-faq-button]');
+        item.classList.remove('active');
+        button.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    customElements.define('faq-accordion-{{ ai_gen_id }}', FaqAccordion{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "FAQ accordion",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "item_spacing",
+      "label": "Space between items",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Question style"
+    },
+    {
+      "type": "font_picker",
+      "id": "question_font",
+      "label": "Question font",
+      "default": "inter_n6"
+    },
+    {
+      "type": "range",
+      "id": "question_font_size",
+      "label": "Question font size",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "question_color",
+      "label": "Question color",
+      "default": "#011624"
+    },
+    {
+      "type": "range",
+      "id": "question_padding",
+      "label": "Question padding",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "question_hover_bg",
+      "label": "Question hover background",
+      "default": "#F2F2F2"
+    },
+    {
+      "type": "header",
+      "content": "Answer style"
+    },
+    {
+      "type": "range",
+      "id": "answer_font_size",
+      "label": "Answer font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "answer_color",
+      "label": "Answer color",
+      "default": "#797979"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link color",
+      "default": "#278BFF"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link hover color",
+      "default": "#011624"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#EBEBEB"
+    },
+    {
+      "type": "color",
+      "id": "border_hover_color",
+      "label": "Border hover",
+      "default": "#278BFF"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon",
+      "default": "#011624"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 16,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "FAQ item 1"
+    },
+    {
+      "type": "text",
+      "id": "question_1",
+      "label": "Question"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_1",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "FAQ item 2"
+    },
+    {
+      "type": "text",
+      "id": "question_2",
+      "label": "Question"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_2",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "FAQ item 3"
+    },
+    {
+      "type": "text",
+      "id": "question_3",
+      "label": "Question"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_3",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "FAQ item 4"
+    },
+    {
+      "type": "text",
+      "id": "question_4",
+      "label": "Question"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_4",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "FAQ item 5"
+    },
+    {
+      "type": "text",
+      "id": "question_5",
+      "label": "Question"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_5",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "FAQ item 6"
+    },
+    {
+      "type": "text",
+      "id": "question_6",
+      "label": "Question"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_6",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "FAQ item 7"
+    },
+    {
+      "type": "text",
+      "id": "question_7",
+      "label": "Question"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_7",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "FAQ item 8"
+    },
+    {
+      "type": "text",
+      "id": "question_8",
+      "label": "Question"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_8",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "FAQ item 9"
+    },
+    {
+      "type": "text",
+      "id": "question_9",
+      "label": "Question"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_9",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "FAQ item 10"
+    },
+    {
+      "type": "text",
+      "id": "question_10",
+      "label": "Question"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_10",
+      "label": "Answer"
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ accordion"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,510 @@
+{{ 'section-rich-text.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  {% render 'section-padding' %}
+  {% render 'section-margin' %}
+{%- endstyle -%}
+  <style>
+     .pc-show {
+      display: block;
+    }
+    .mo-show {
+      display: none;
+    }
+    .x1-pro-earnest-titlebox {
+      text-align: center;
+      margin-bottom: 40px;
+      color: #ffffff;
+    }
+    .x1-pro-earnest-title {
+      {% comment %} font-size: 30px;
+      font-weight: bold; {% endcomment %}
+      margin-bottom: 20px;
+      color: #ffffff;
+      word-spacing: 5px;
+    }
+    .x1-pro-earnest-des {
+      font-size: 18px;
+    }
+    .x1-pro-earnest-kicklogo {
+      height: 16px;
+      margin: 0 5px;
+    }
+    .x1-pro-earnest-imgbox {
+      width: 100%;
+      position: relative;
+    }
+    .x1-pro-earnest-bgimg {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .x1-pro-earnest-textbox {
+      position: absolute;
+      top: 30%;
+      left: 17%;
+      font-size: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5vw;
+    }
+    .x1-pro-earnest-texttitle {
+      font-size: 26px;
+      font-weight: bold;
+      text-align: left;
+    }
+    .x1-pro-earnest-textprice-box {
+       text-align: left;
+    }
+    .x1-pro-earnest-saleprice {
+      font-size: 30px;
+      font-weight: bold;
+      margin: 0 3px;
+    }
+    .x1-pro-earnest-originprice {
+      text-decoration: line-through;
+    }
+    .x1-pro-earnest-btn {
+      font-weight: bold;
+      background: #fff100;
+      padding: 10px 25px;
+      width: fit-content;
+      border-radius: 90px;
+      color: #000000;
+      text-decoration: none;
+    }    
+    .x1-pro-slide-kicklogobig {
+      height: 40px;
+      margin: 0 15px;
+    }    
+    @media screen and (max-width: 750px) {
+      .pc-show {
+        display: none;
+      }
+      .mo-show {
+        display: block;
+      }
+      {% comment %} .x1-pro-earnest-title {
+        font-size: 26px;
+      } {% endcomment %}
+      .x1-pro-earnest-des {
+        font-size: 16px;
+      }
+      .x1-pro-earnest-kicklogo {
+        height: 14px;
+        margin: 0 3px;
+      }
+      .x1-pro-earnest-textbox {
+        top: unset;
+        left: 20px;
+        width: calc(100% - 40px);
+        bottom: 40px;
+        font-size: 16px;
+        gap: 12px;
+        color: #ffffff;
+        align-items: center;
+      }
+      .x1-pro-earnest-texttitle {
+        font-size: 22px;
+        text-align: center;
+      }
+      .x1-pro-earnest-saleprice {
+        font-size: 28px;
+      } 
+    .x1-pro-earnest-textprice-box {
+       text-align: center;
+    } 
+    .x1-pro-earnest-titlebox {
+      margin-bottom: 30px;
+      word-spacing: 3px;
+    } 
+    .x1-pro-earnest-title {
+      margin-bottom: 10px;
+    } 
+      .x1-pro-slide-kicklogobig {
+        height: 24px;
+        margin: 10px 0;
+      }                    
+    }
+  </style>
+ <div class="rich-text {% if section.settings.full_width %}rich-text--full-width {% else %}container{% endif %} rich-text--align-{{ section.settings.alignment }}">
+  <div class="rich-text__blocks {% if section.settings.full_width %}container{% endif %} color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">   
+   <div class="x1-pro-earnest-content">
+      <div class="x1-pro-earnest-titlebox">
+        <h1 class="x1-pro-earnest-title h1">
+          {% comment %} Spend $2 Deposit Now and Get $150 0ff {% endcomment %}
+            Get Up to 48% OFF on<span
+              ><img
+                class="x1-pro-slide-kicklogobig"
+                src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/X1_Pro_Crowdfunding_20250911-145657.png"
+                alt=""
+            /></span> 
+        </h1>
+        {% comment %} <div class="x1-pro-earnest-des">
+          Lock in the
+          <a href="https://www.kickstarter.com/projects/593941944/baseus-x1-pro-first-smart-ai-dual-tracking-security-camera" target="_blank"
+            ><img
+              class="x1-pro-earnest-kicklogo"
+              src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/X1_Pro_Crowdfunding_20250911-145657.png"
+              alt=""
+          /></a>
+          Secret Reward bundle
+        </div> {% endcomment %}
+      </div>
+      <div class="x1-pro-earnest-imgbox">
+        <img
+          class="x1-pro-earnest-bgimg pc-show"
+          src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/X1_PRO_landing_earnest.jpg"
+          alt=""
+        />
+        <img
+          class="x1-pro-earnest-bgimg mo-show"
+          src="https://cdn.shopify.com/s/files/1/0895/4252/5298/files/X1_PRO_landing_earnest_02_mo.jpg"
+          alt=""
+        />
+
+        <div class="x1-pro-earnest-textbox">
+          {% comment %} <div class="x1-pro-earnest-texttitle">X1 Pro + 64GB microSD Card</div> {% endcomment %}
+          <div class="x1-pro-earnest-texttitle">Back us now and secure your <br />
+             Super Early Bird deal</div> 
+          {% comment %} <div class="x1-pro-earnest-textprice-box">
+            Only
+            <span class="x1-pro-earnest-saleprice">$139.99</span>
+            <span class="x1-pro-earnest-originprice">MSRP$289.99</span>
+          </div> {% endcomment %}
+          {% comment %} <a href="https://security.baseus.com/cart/60697778127218:1" class="x1-pro-earnest-btn">DEPOSIT NOW</a> {% endcomment %}
+          <a href="{{ section.settings.button_url }}" class="x1-pro-earnest-btn">Pre-Order Now</a>
+        </div>
+      </div>
+    </div>
+ 
+      </div>
+    </div>  
+{% schema %}
+{
+  "name": "x1-pro-earnest",
+  "tag": "section",
+  "class": "spaced-section",
+  "enabled_on": {
+    "templates": ["*"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "background-1",
+      "label": "t:sections.all.color_scheme.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": true,
+      "label": "t:sections.rich-text.settings.full_width.label"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.rich-text.settings.alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.rich-text.settings.alignment.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.rich-text.settings.alignment.options__3.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.rich-text.settings.alignment.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section-margin.header.content"
+    },
+    {
+      "type": "select",
+      "id": "margin_top",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-margin.options__6.label"
+        }
+      ],
+      "default": "no-indent",
+      "label": "t:sections.all.section-margin.margin_top.label"
+    },
+    {
+      "type": "select",
+      "id": "margin_bottom",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-margin.options__6.label"
+        }
+      ],
+      "default": "no-indent",
+      "label": "t:sections.all.section-margin.margin_bottom.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section-padding.header.content"
+    },
+    {
+      "type": "select",
+      "id": "padding_top",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-padding.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-padding.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-padding.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-padding.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-padding.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-padding.options__6.label"
+        }
+      ],
+      "default": "m",
+      "label": "t:sections.all.section-padding.padding_top.label"
+    },
+    {
+      "type": "select",
+      "id": "padding_bottom",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-padding.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-padding.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-padding.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-padding.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-padding.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-padding.options__6.label"
+        }
+      ],
+      "default": "m",
+      "label": "t:sections.all.section-padding.padding_bottom.label"
+    },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Botton url"
+        },     
+        {
+          "type": "text",
+          "id": "text1",
+          "default": "Engineered for Total Privacy",
+          "label": "text1"
+        }, 
+        {
+          "type": "text",
+          "id": "text2",
+          "default": "No cloud. No subscription. Full data control.",
+          "label": "text2"
+        }, 
+        {
+          "type": "text",
+          "id": "text3",
+          "default": "https://cdn.shopify.com/s/files/1/0555/8432/5709/files/X1_PRO_PC.png",
+          "label": "text3"
+        }, 
+        {
+          "type": "text",
+          "id": "text4",
+          "default": "https://cdn.shopify.com/s/files/1/0555/8432/5709/files/X1_PRO_MOB.png",
+          "label": "text4"
+        }, 
+        {
+          "type": "text",
+          "id": "text5",
+          "default": "Sign up now for updates on new products and a chance at beta testing!",
+          "label": "text5"
+        }, 
+        {
+          "type": "text",
+          "id": "text6",
+          "default": "Unlock the Launch Special when we go live on Kickstarter!",
+          "label": "text6"
+        }, 
+        {
+          "type": "text",
+          "id": "text7",
+          "default": "By signing up, you agree to receive our newsletters.",
+          "label": "text7"
+        }   
+  ],
+  "blocks": [
+    {
+      "type": "subheading",
+      "name": "t:sections.rich-text.blocks.subheading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "subheading",
+          "default": "Subheading",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading.label"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "t:sections.rich-text.blocks.heading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Heading for your section",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading.label"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            {
+              "value": "medium",
+              "label": "t:sections.rich-text.blocks.heading.settings.heading_size.options__1.label"
+            },
+            {
+              "value": "large",
+              "label": "t:sections.rich-text.blocks.heading.settings.heading_size.options__2.label"
+            }
+          ],
+          "default": "medium",
+          "label": "t:sections.rich-text.blocks.heading.settings.heading_size.label"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.rich-text.blocks.text.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Description for your section.</p>",
+          "label": "t:sections.rich-text.blocks.text.settings.text.label"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "t:sections.rich-text.blocks.button.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button label",
+          "label": "t:sections.all.button.button_label.label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.all.button.button_link.label"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "options": [
+            {
+              "value": "primary",
+              "label": "t:sections.all.button.button_style.options__1.label"
+            },
+            {
+              "value": "secondary",
+              "label": "t:sections.all.button.button_style.options__2.label"
+            },
+            {
+              "value": "tertiary",
+              "label": "t:sections.all.button.button_style.options__3.label"
+            }
+          ],
+          "default": "primary",
+          "label": "t:sections.all.button.button_style.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "x1-pro-earnest",
+      "blocks": [
+      ]
+    }
+  ]
+}
+{% endschema %}

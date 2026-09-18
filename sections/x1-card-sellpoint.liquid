@@ -1,0 +1,429 @@
+{{ 'section-rich-text.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  {% render 'section-padding' %}
+  {% render 'section-margin' %}
+{%- endstyle -%}
+  <style>
+    .x1-card-content {
+      display: flex;
+      width: 100%;
+      gap: 4%;
+      text-align: center;
+      {% comment %} background: linear-gradient(to right, #010100, #2b2e32 50%, #010100); {% endcomment %}
+      padding: 50px 30px;
+      max-width: 1500px;
+      position: relative;
+      z-index: 1;
+    }
+    .x1-card-boxs {
+      width: 100%;
+      color: #575757;
+    }
+    .x1-card-boxs.active {
+      color: #ffffff;
+    }
+    .x1-card-imgs {
+      width: 100%;
+      transition: all 0.6s;
+      border-radius: 12px;
+    }
+    .x1-card-boxs.active .x1-card-imgs {
+      transform: scale(1.1);
+    }
+    .x1-card-textbox {
+    }
+    .x1-card-text-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    .x1-card-text-des {
+      font-size: 14px;
+    }
+    .x1-card-section {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(to right, #010100, #2b2e32 50%, #010100); 
+    }
+    @media screen and (max-width: 750px) {
+      .x1-card-content {
+        overflow: auto;
+        gap: 5vw;
+      }
+      .x1-card-imgs {
+        width: 60vw;
+      }
+
+      .x1-card-boxs.active .x1-card-imgs {
+        {% comment %} transform: none; {% endcomment %}
+      }
+      .x1-card-boxs {
+        width: 60vw;
+        max-width: 400px;
+        flex-shrink: 0;
+      }
+      .x1-card-text-title { 
+        font-size: 16px;
+        line-height: 20px;
+      }
+      .x1-card-text-des {
+        margin-top: 5px;
+      }
+    }
+  </style>
+<div class="rich-text {% if section.settings.full_width %}rich-text--full-width {% else %}container{% endif %} rich-text--align-{{ section.settings.alignment }}">
+  <div class="rich-text__blocks {% if section.settings.full_width %}container{% endif %} color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">  
+    <div class="x1-card-content">
+      {%- for block in section.blocks -%}
+      <div
+        class="x1-card-boxs"
+        onmouseenter="expandModule(this)"
+        onmouseleave="resetModules()"
+      >
+        <img 
+          class="x1-card-imgs"
+          src="{{ block.settings.image | image_url }}"
+          alt=""
+        />
+        <div class="x1-card-textbox">
+          <div class="x1-card-text-title">
+            {{ block.settings.text }}
+          </div>
+          {% comment %} <div class="x1-card-text-des">Protect two yards simultaneously.</div> {% endcomment %}
+        </div>
+      </div>
+      {%- endfor -%}
+      {% comment %} <div
+        class="x1-card-boxs active"
+        onmouseenter="expandModule(this)"
+        onmouseleave="resetModules()"
+      >
+        <img
+          
+          class="x1-card-imgs"
+          src="{{ section.settings.text4 }}"
+          alt=""
+        />
+        <div class="x1-card-textbox">
+          <div class="x1-card-text-title">
+            {{ section.settings.text5 }}<br />
+            {{ section.settings.text6 }}
+          </div>
+          {% comment %} <div class="x1-card-text-des">Unified, seamless motion tracking.</div> {% endcomment %}
+        </div>
+      </div>
+      <div
+        class="x1-card-boxs"
+        onmouseenter="expandModule(this)"
+        onmouseleave="resetModules()"
+      >
+        <img
+          
+          class="x1-card-imgs"
+          src="{{ section.settings.text7 }}"
+          alt=""
+        />
+        <div class="x1-card-textbox">
+          <div class="x1-card-text-title">
+            {{ section.settings.text8 }}<br />
+            {{ section.settings.text9 }}
+          </div>
+          {% comment %} <div class="x1-card-text-des">
+            Singular comprehensive motion tracking.
+          </div> {% endcomment %}
+        </div> {% endcomment %}
+    <script>
+      if (window.innerWidth <= 750) {
+        const picmodules = document.querySelectorAll(".x1-card-boxs");
+        console.log(picmodules,'picmodules')
+        picmodules[0].classList.add("active")        
+        {% comment %} const element = document.querySelector(".x1-card-content");
+        element.scrollLeft = window.innerWidth * 0.45; {% endcomment %}
+      }
+      function expandModule(module) {
+        // Get all modules
+        const modules = document.querySelectorAll(".x1-card-boxs");
+
+        // Add active class to hovered module
+        module.classList.add("active");
+
+        // Add inactive class to other modules
+        modules.forEach((m) => {
+          if (m !== module) {
+            m.classList.remove("active");
+          }
+        });
+      }
+
+      function resetModules() {
+        // Remove all active/inactive classes
+        const modules = document.querySelectorAll(".x1-card-boxs");
+        modules.forEach((m) => {
+          m.classList.remove("active");
+          //   m.classList.remove("inactive");
+        });
+      }
+    </script>    
+  </div>
+</div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "x1-card-sellpoint",
+  "tag": "section",
+  "class": "spaced-section",
+  "enabled_on": {
+    "templates": ["*"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "background-1",
+      "label": "t:sections.all.color_scheme.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": true,
+      "label": "t:sections.rich-text.settings.full_width.label"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.rich-text.settings.alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.rich-text.settings.alignment.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.rich-text.settings.alignment.options__3.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.rich-text.settings.alignment.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section-margin.header.content"
+    },
+    {
+      "type": "select",
+      "id": "margin_top",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-margin.options__6.label"
+        }
+      ],
+      "default": "no-indent",
+      "label": "t:sections.all.section-margin.margin_top.label"
+    },
+    {
+      "type": "select",
+      "id": "margin_bottom",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-margin.options__6.label"
+        }
+      ],
+      "default": "no-indent",
+      "label": "t:sections.all.section-margin.margin_bottom.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section-padding.header.content"
+    },
+    {
+      "type": "select",
+      "id": "padding_top",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-padding.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-padding.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-padding.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-padding.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-padding.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-padding.options__6.label"
+        }
+      ],
+      "default": "m",
+      "label": "t:sections.all.section-padding.padding_top.label"
+    },
+    {
+      "type": "select",
+      "id": "padding_bottom",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-padding.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-padding.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-padding.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-padding.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-padding.options__5.label"
+        },
+        {
+          "value": "xl",
+          "label": "t:sections.all.section-padding.options__6.label"
+        }
+      ],
+      "default": "m",
+      "label": "t:sections.all.section-padding.padding_bottom.label"
+    },
+        {
+          "type": "text",
+          "id": "text1",
+          "default": "https://cdn.shopify.com/s/files/1/0555/8432/5709/files/x1_pro_01-3_91d496b1-ca9a-4fa6-bebc-12f4a39fd904.jpg",
+          "label": "text1"
+        }, 
+        {
+          "type": "text",
+          "id": "text2",
+          "default": "300° Max Pan ",
+          "label": "text2"
+        }, 
+        {
+          "type": "text",
+          "id": "text3",
+          "default": "Tracking",
+          "label": "text3"
+        }, 
+        {
+          "type": "text",
+          "id": "text4",
+          "default": "https://cdn.shopify.com/s/files/1/0555/8432/5709/files/x1_pro_02-3_701fd611-92de-424a-b961-03f74c926d63.jpg",
+          "label": "text4"
+        }, 
+        {
+          "type": "text",
+          "id": "text5",
+          "default": "Live Cross-Cam ",
+          "label": "text5"
+        }, 
+        {
+          "type": "text",
+          "id": "text6",
+          "default": "Al Tracking",
+          "label": "text6"
+        }, 
+        {
+          "type": "text",
+          "id": "text7",
+          "default": "https://cdn.shopify.com/s/files/1/0555/8432/5709/files/x1_pro_03-3_7620462e-677d-412d-8703-9679a5a2e002.jpg",
+          "label": "text7"
+        }, 
+        {
+          "type": "text",
+          "id": "text8",
+          "default": "Dual Independent ",
+          "label": "text8"
+        }, 
+        {
+          "type": "text",
+          "id": "text9",
+          "default": "Camera Tracking",
+          "label": "text9"
+        }    
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "t:sections.slideshow.blocks.slide.name",
+      "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },   
+        {
+          "type": "text",
+          "id": "text",
+          "label": "title"
+        }           
+      ] 
+    }         
+  ],
+  "presets": [
+    {
+      "name": "x1-card-sellpoint",
+    }
+  ]
+}
+{% endschema %}
